@@ -1,0 +1,122 @@
+<div class="c-event-scoreboard__loader" *ngIf="isLoading === true">
+    Loading ...
+    <svg version="1.1" id="L9" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+    viewBox="0 0 100 100" enable-background="new 0 0 0 0" xml:space="preserve">
+      <path fill="#007bff" d="M73,50c0-12.7-10.3-23-23-23S27,37.3,27,50 M30.9,50c0-10.5,8.5-19.1,19.1-19.1S69.1,39.5,69.1,50">
+        <animateTransform
+           attributeName="transform"
+           attributeType="XML"
+           type="rotate"
+           dur="1s"
+           from="0 50 50"
+           to="360 50 50"
+           repeatCount="indefinite" />
+    </path>
+  </svg>
+</div>
+<div *ngIf="isLoading === false" class="c-event-scoreboard">
+    <section class="content-header">
+        <h1>Scoreboard</h1>
+
+        <div class="c-event-scoreboard__link" *ngIf="scoreboard">
+            <div class="c-event-scoreboard__link-url">
+                <i class="fa fa-globe" aria-hidden="true"></i>
+                {{getDashboardUrl()}}
+            </div>
+            <div class="c-event-scoreboard__link-buttons">
+                <a class="btn btn-primary btn-sm" (click)="copyToClipboard(getDashboardUrl())">
+                    Copy Link
+                </a>
+                <a [href]="getDashboardUrl()" target="_blank" class="btn btn-primary btn-sm">
+                    Open Link
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <div class="content">
+        <div class="form">
+            <wo-flash></wo-flash>
+
+            <div class="form-row__double">
+                <div class="form-row">
+                    <div class="form-toggle">
+                        <wo-slide-toggle-button [trueValue]="1" [falseValue]="0" [(ngModel)]="scoreboard['show_countdown_clock']"></wo-slide-toggle-button>
+                    </div>
+                    <div class="form-toggle-label">
+                        Countdown clock
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-toggle">
+                        <wo-slide-toggle-button [trueValue]="1" [falseValue]="0" [(ngModel)]="scoreboard['show_quiz_title']"></wo-slide-toggle-button>
+                    </div>
+                    <div class="form-toggle-label">
+                        Title (of the quiz)
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row__double">
+                <div class="form-row">
+                    <div class="form-toggle">
+                        <wo-slide-toggle-button [trueValue]="1" [falseValue]="0" [(ngModel)]="scoreboard['show_teams_avatars']"></wo-slide-toggle-button>
+                    </div>
+                    <div class="form-toggle-label">
+                        Teams' avatar
+                    </div>
+                </div>
+            </div>
+
+            <h4>Appearance Settings</h4>
+
+            <div class="form-row__double">
+                <div class="form-row">
+                    <div class="form-label">
+                        Template
+                    </div>
+                    <div class="form-field">
+                        <select class="form-control" name="template" [(ngModel)]="scoreboard['template_id']">
+                            <option *ngFor="let template of templates" [value]="template.id">{{template.name}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row__double">
+                <div class="form-row">
+                    <div class="form-label">
+                        Background Color
+                    </div>
+                    <div class="form-field">
+                        <wo-colorpicker [(ngModel)]="scoreboard['background_color']"></wo-colorpicker>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row__double">
+                <div class="form-row">
+                    <div class="form-label">
+                        Background Image
+                    </div>
+                    <div class="form-field">
+                        <upload-image
+                            (changeImage)="onImageChanged($event, scoreboard)"
+                            [woId]="scoreboard['background_image_file_id'] || null"
+                            [woSrc]="api.baseUrl + '/files/image?r=350x350'"
+                            [woFullSrc]="api.baseUrl + '/files/image?r=1000x1000'"
+                        ></upload-image>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row form-row-button">
+                <a href="javascript:void(0)" (click)="doSave()" class="btn btn-primary">
+                    Save
+                </a>
+            </div>
+        </div>
+    </div>
+    <br>
+</div>

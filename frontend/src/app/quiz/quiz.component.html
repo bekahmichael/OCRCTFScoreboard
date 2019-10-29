@@ -1,0 +1,89 @@
+<div class="app-wrapper">
+    <div class="l-header" *ngIf="isLogged()">
+        <div class="l-header__logo">
+            <a class="long-logo">
+                <i class="fa fa-rocket" aria-hidden="true"></i>
+                {{title}}
+            </a>
+            <a class="short-logo">
+                <i class="fa fa-rocket" aria-hidden="true"></i>
+            </a>
+        </div>
+        <a href="javascript:void(0)" (click)="sidebarToggle()" class="sidebar-toggle"></a>
+        <div class="user-menu__wrapper clearfix quiz-part">
+            <div class="user-menu__main">
+                <div class="user-menu__name">
+                    {{team['name']}}
+                </div>
+                <div class="user-menu__avatar">
+                    <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="l-right">
+        <div class="v-nav">
+            <div class="v-nav__header">
+                QUESTIONS
+            </div>
+            <div class="v-nav__header_compact">
+                <i class="fa fa-question" aria-hidden="true"></i>
+            </div>
+        </div>
+        <ul class="sidebar-menu small-size">
+            <li *ngFor="let question of this.questions; let i=index" class="treeview">
+                <a [scrollTo]="'#block_'+question.id" href="javascript:void(false)">
+                    <i class="fa" [ngClass]="question.is_selected ? 'fa-check text-success' : 'fa-circle-o text-warning'" aria-hidden="true"></i>{{i + 1}}
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="l-main">
+        <wo-breadcrumbs *ngIf="isLogged()"></wo-breadcrumbs>
+        <router-outlet></router-outlet>
+        <main role="main" class="container">
+            <wo-flash></wo-flash>
+            <div *ngIf="loading" class="row disabled">
+                <div class="col-12">
+                    <p>Loading ...</p>
+                </div>
+            </div>
+            <div *ngIf="!loading">
+                <div class="box box-solid box-info my-3">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">{{event['name']}}</h3>
+                        <div class="box-tools pull-right">
+                            Date: {{event['event_date']}}
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-lg-9 col-md-7 col-sm-12">
+                                <p>{{event['description']}}</p>
+                            </div>
+                            <div class="col-lg-3 col-md-5 col-sm-6 col-xs-12">
+                                <div class="info-box bg-warning mb-0">
+                                    <span class="info-box-icon"><i class="fa fa-clock-o"></i></span>
+                                    <div class="info-box-content lh-125">
+                                        <span class="info-box-text">Start at</span>
+                                        <span class="info-box-number">{{event['event_time_start']}}</span>
+                                        <span class="info-box-text">Finish at</span>
+                                        <span class="info-box-number">{{event['event_time_end']}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <form>
+                    <quiz-question *ngFor="let question of this.questions; let i=index" [attr.id]="'block_'+question.id" [question]="question" [event]="event" [index]="i+1" [ws]="ws"></quiz-question>
+                    <div *ngIf="this.questions.length > 0" class="row">
+                        <div class="col-12 text-center">
+                            <button type="button" class="btn btn-success btn-lg my-4" (click)="sendQuizAnswers()">Send</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </div>
+</div>

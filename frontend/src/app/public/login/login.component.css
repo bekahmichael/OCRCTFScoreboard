@@ -1,0 +1,60 @@
+.c-login__header {
+    background: #f0f0f0;
+    border-bottom: 1px solid #d4d4d5;
+}
+
+.form {
+    padding: 20px 0 0 0;
+}
+
+.forgot-link {
+    display: inline-block;
+    margin-top: 5px;
+    margin-left: 5px;
+}
+
+.c-login {
+    margin: 0 auto;
+    border: 1px solid #d4d4d5;
+    margin-top: 25px;
+    border-radius: 4px;
+    overflow: hidden;
+    border-bottom: 1px solid #d4d4d5;
+}
+
+.content-header {
+    padding: 8px 0;
+
+}
+
+.content-header h1 {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 0;
+}
+
+.form-label {
+    text-align: right;
+    padding-top: 9px;
+    box-sizing: border-box;
+    padding-right: 10px;
+    font-weight: bold;
+    font-size: 13px;
+}
+
+.form-label.required:after {
+    margin: -2px 0 0 1px;
+    content: '*';
+    display: inline-block;
+    color: #db2828;
+    transform: translateY(-4px);
+}
+
+.form-field input[type=text],
+.form-field input[type=password] {
+    width: 100%;
+}
+
+.form__row {
+    padding-bottom: 20px;
+}

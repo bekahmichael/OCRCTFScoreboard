@@ -1,0 +1,22 @@
+:host {
+    cursor: pointer;
+    display: inline-block;
+}
+
+:host > svg {
+    float: left;
+    width: 100%;
+    height: auto;
+}
+
+:host > svg:last-child {
+    margin-top: -98%;
+}
+
+:host svg:first-child {
+    transition: 0.3s ease-in-out;
+}
+
+:host:hover svg:first-child {
+    transform: translate(5%, -15%) rotate(-25deg);
+}

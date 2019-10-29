@@ -1,0 +1,37 @@
+<div class="upload-image" [class.isLoading]="isLoading">
+    <label [class.isHide]="!(woId === null)" title="Add image">
+        <div  class="upload-image__body">
+            <div class="upload-image__no-photo">
+                <img src="/assets/pic/img_upload.png" width="60px"/>
+            </div>
+        </div>
+
+        <input #inputFile accept="image/x-png,image/jpeg" type="file" name="woAvatar[]">
+    </label>
+
+    <div *ngIf="woId && woId !== ''" class="upload-image__body">
+        <div class="upload-image__photo">
+            <wo-preview-image [woFullSrc]="getFullSrc()">
+                <img [src]="getAvatarUrl()" alt="">
+            </wo-preview-image>
+        </div>
+        <div class="upload-image__remove" (click)="doRemove()">
+            Remove
+        </div>
+    </div>
+
+    <div class="lds-spinner">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</div>

@@ -1,0 +1,58 @@
+<div class="row justify-content-md-center">
+    <div class="col-12 col-md-8 c-login">
+        <div class="row c-login__header">
+            <div class="col-8 offset-4">
+                <section class="content-header">
+                    <h1>Log In</h1>
+                </section>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="form">
+                <form action="javascript:void(0);" (ngSubmit)="doSubmit()">
+                    <div class="row form__row">
+                        <div class="col-4 col-xs-4 col-md-4 form-label required">
+                            Email or Username
+                        </div>
+                        <div class="col-7 col-sm-7 col-md-7 col-lg-5 form-field">
+                            <input class="form-control" [ngClass]="{'hasError': formErrors['username']}" [(ngModel)]="dataForm['username']" type="text" name="login[username]">
+                            <div [ngClass]="{show: formErrors['username']}" class="label-error">
+                                {{formErrors['username']}}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row form__row">
+                        <div class="col-4 col-xs-4 col-md-4 form-label required">
+                            Password
+                        </div>
+                        <div class="col-7 col-sm-7 col-md-7 col-lg-5 form-field">
+                            <input class="form-control" [ngClass]="{'hasError': formErrors['password']}" type="password" [(ngModel)]="dataForm['password']" name="login[passowrd]">
+                            <div [ngClass]="{show: formErrors['password']}" class="label-error">
+                                {{formErrors['password']}}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row form__row">
+                        <div class="col-7 offset-4 col-sm-7 col-md-7 col-lg-5 form-field">
+                            <button type="submit" class="btn btn-primary">
+                                Log In
+                            </button>
+                            <a class="forgot-link" routerLink="/request-password-reset">
+                                Forgot your password?
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="row form__row">
+                        <div class="col-7 offset-4 col-sm-7 col-md-7 col-lg-5 form-field">
+                            <a routerLink="/signup">Need an account? Sign up now.</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

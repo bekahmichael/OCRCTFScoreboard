@@ -1,0 +1,129 @@
+<div class="c-team-participants">
+    <div class="content">
+
+        <!-- Search -->
+        <form action="javascript:void(0);" (submit)="doSearch()">
+            <div class="form__search-box" [ngClass]="{'advanced-filter': advanced_filters}">
+                <div class="form__search-box__common clearfix">
+                    <input class="form-control" type="text" name="common_search" [(ngModel)]="criteria.preFilter['common']" placeholder="Search..." >
+                    <button class="btn btn-secondary">
+                        <i class="fa fa-search" aria-hidden="true"></i>
+                    </button>
+                    <a href="javascript:void(0);" (click)="toggleAdvancedFilter()" class="form__search-box__advanced-btn">
+                        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                        <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                        Advanced Search
+                    </a>
+                </div>
+
+                <!-- Advanced Search -->
+                <div class="form__advanced-search-box">
+                    <div class="form__advanced-search-box__body clearfix">
+
+                        <div class="form__advanced-search-box__item clearfix">
+                            <div class="form__advanced-search-box__label">Username</div>
+                            <div class="form__advanced-search-box__field">
+                                <input class="form-control" type="text" autocomplete="off" [(ngModel)]="criteria['preFilter']['username']" name="username">
+                            </div>
+                        </div>
+
+
+                        <div class="form__advanced-search-box__item clearfix">
+                            <div class="form__advanced-search-box__label">First Name</div>
+                            <div class="form__advanced-search-box__field">
+                                <input class="form-control" type="text" autocomplete="off" [(ngModel)]="criteria['preFilter']['first_name']" name="first_name">
+                            </div>
+                        </div>
+
+
+                        <div class="form__advanced-search-box__item clearfix">
+                            <div class="form__advanced-search-box__label">Last Name</div>
+                            <div class="form__advanced-search-box__field">
+                                <input class="form-control" type="text" autocomplete="off" [(ngModel)]="criteria['preFilter']['last_name']" name="last_name">
+                            </div>
+                        </div>
+
+
+                        <div class="form__advanced-search-box__item clearfix">
+                            <div class="form__advanced-search-box__label">Email</div>
+                            <div class="form__advanced-search-box__field">
+                                <input class="form-control" type="text" autocomplete="off" [(ngModel)]="criteria['preFilter']['email']" name="email">
+                            </div>
+                        </div>
+
+<!--
+                        <div class="form__advanced-search-box__item clearfix">
+                            <div class="form__advanced-search-box__label">Status</div>
+                            <div class="form__advanced-search-box__field">
+                                <input class="form-control" type="text" autocomplete="off" [(ngModel)]="criteria['preFilter']['status']" name="status">
+                            </div>
+                        </div> -->
+
+
+                        <!-- <div class="form__advanced-search-box__item clearfix">
+                            <div class="form__advanced-search-box__label">Created At</div>
+                            <div class="form__advanced-search-box__field">
+                                <wo-datepicker [(ngModel)]="criteria['preFilter']['created_at']" name="null"></wo-datepicker>
+                            </div>
+                        </div> -->
+
+                    </div>
+                    <div class="form__advanced-search-box__controls">
+                        <button class="btn btn-primary">Apply Filter</button>
+                        <button (click)="resetFilter($event)" class="btn btn-default">Reset Filter</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+<br>
+        <!-- Table List -->
+        <div [ngClass]="{'box-loading': loading}">
+            <table class="table table-bordered table-condensed table-striped table-hover table-sm">
+                <thead>
+                    <tr>
+                        <th>
+                            <wo-sort [woSortActive]="criteria['sort']" woSortStart="username" (sort)="sortBy($event)">Username</wo-sort>
+                        </th>
+                        <th>
+                            <wo-sort [woSortActive]="criteria['sort']" woSortStart="first_name" (sort)="sortBy($event)">First Name</wo-sort>
+                        </th>
+                        <th>
+                            <wo-sort [woSortActive]="criteria['sort']" woSortStart="last_name" (sort)="sortBy($event)">Last Name</wo-sort>
+                        </th>
+                        <th>
+                            <wo-sort [woSortActive]="criteria['sort']" woSortStart="email" (sort)="sortBy($event)">Email</wo-sort>
+                        </th>
+                        <th>
+                            <wo-sort [woSortActive]="criteria['sort']" woSortStart="status" (sort)="sortBy($event)">Status</wo-sort>
+                        </th>
+                        <th style="width: 120px;">
+                            <wo-sort [woSortActive]="criteria['sort']" woSortStart="created_at" (sort)="sortBy($event)">Created At</wo-sort>
+                        </th>
+                        <th style="width: 50px; text-align: center;">
+                            Assigned
+                        </th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr *ngFor="let row of rows" [class.table-success]="row.is_assigned">
+                        <td class="td-link" (click)="toProfile(row.id)">{{row['username']}}</td>
+                        <td class="td-link" (click)="toProfile(row.id)">{{row['first_name']}}</td>
+                        <td class="td-link" (click)="toProfile(row.id)">{{row['last_name']}}</td>
+                        <td class="td-link" (click)="toProfile(row.id)">{{row['email']}}</td>
+                        <td class="td-link" (click)="toProfile(row.id)">{{row['status']}}</td>
+                        <td class="td-link" (click)="toProfile(row.id)">{{row['created_at'] | date}}</td>
+                        <td style="text-align: center;">
+                            <wo-slide-toggle (change)="assignUser(row)" [(ngModel)]="row.is_assigned"></wo-slide-toggle>
+                        </td>
+                    </tr>
+                    <tr *ngIf="rows.length == 0" class="disabled">
+                        <td colspan="7">{{loading ? 'Loading ...' : 'No matching records found'}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <wo-paginator *ngIf="last_page>1" [last]="last_page" [current]="curr_page" (changePage)="toPage($event)"></wo-paginator>
+    </div>
+</div>

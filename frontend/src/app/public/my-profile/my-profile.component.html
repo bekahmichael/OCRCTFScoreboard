@@ -1,0 +1,91 @@
+<wo-flash block="my-profile"></wo-flash>
+
+<div class="c-my-profile">
+    <div class="content-header">
+        <h1>My Profile</h1>
+    </div>
+
+    <form action="javascript:;" name="myProfileForm" class="form" (submit)="doSave()" *ngIf="user">
+        <div class="wo-dialog-alert__body">
+            <div class="form-row">
+                <div class="form-label required">
+                    Username
+                </div>
+                <div class="form-field">
+                    <input class="form-control" [ngClass]="{'hasError': dataErrors?.username }" type="text" name="my[username]" [(ngModel)]="user.username">
+                    <div [ngClass]="{show: dataErrors?.username}" class="label-error">
+                        {{dataErrors?.username}}
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-label required">
+                    Email
+                </div>
+                <div class="form-field">
+                    <input class="form-control" [ngClass]="{'hasError': dataErrors?.email }" type="text" name="my[email]" [(ngModel)]="user.email">
+                    <div [ngClass]="{show: dataErrors?.email}" class="label-error">
+                        {{dataErrors?.email}}
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form-row">
+                <div class="form-label required">
+                    First Name
+                </div>
+                <div class="form-field">
+                    <input class="form-control" [ngClass]="{'hasError': dataErrors?.first_name }" type="text" name="my[first_name]" [(ngModel)]="user.first_name">
+                    <div [ngClass]="{show: dataErrors?.first_name}" class="label-error">
+                        {{dataErrors?.first_name}}
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-label required">
+                    Last Name
+                </div>
+                <div class="form-field">
+                    <input class="form-control" [ngClass]="{'hasError': dataErrors?.last_name }" type="text" name="my[last_name]" [(ngModel)]="user.last_name">
+                    <div [ngClass]="{show: dataErrors?.last_name}" class="label-error">
+                        {{dataErrors?.last_name}}
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row" style="padding-top: 20px;">
+                <div class="form-label">
+                    New Password
+                </div>
+                <div class="form-field">
+                    <input class="form-control" [ngClass]="{'hasError': dataErrors?.password }" type="password" name="my[password]" [(ngModel)]="user.password">
+                    <div [ngClass]="{show: dataErrors?.password}" class="label-error">
+                        {{dataErrors?.password}}
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-label">
+                    Confirm New Password
+                </div>
+                <div class="form-field">
+                    <input class="form-control" [ngClass]="{'hasError': dataErrors?.password_repeat }" type="password" name="my[cpassword]" [(ngModel)]="user.password_repeat">
+                    <div [ngClass]="{show: dataErrors?.password_repeat}" class="label-error">
+                        {{dataErrors?.password_repeat}}
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-label"></div>
+                <div class="form-field">
+                    <input type="submit" class="btn btn-primary" value="Update Profile">
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

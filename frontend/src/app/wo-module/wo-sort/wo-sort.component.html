@@ -1,0 +1,13 @@
+<div (click)="setSort()" class="wo-sorter" [ngClass]="{'wo-sorter_asc': asc, 'wo-sorter_desc': desc}">
+  <div class="wo-sorter__label">
+    <ng-content></ng-content>
+  </div>
+  <div class="wo-sorter__icon">
+    <div class="wo-sorter__icon-up">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1027 579"><path d="m 1026,513 q 0,-26 -19,-45 L 559,20 Q 540,1 514,1 488,1 469,20 L 21,468 q -19,19 -19,45 0,26 19,45 19,19 45,19 h 896 q 26,0 45,-19 19,-19 19,-45 z"/></svg>
+    </div>
+    <div class="wo-sorter__icon-down">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1027 579"><path d="m 1026,65 q 0,26 -19,45 L 559,558 q -19,19 -45,19 -26,0 -45,-19 L 21,110 Q 2,91 2,65 2,39 21,20 40,1 66,1 h 896 q 26,0 45,19 19,19 19,45 z"/></svg>
+    </div>
+  </div>
+</div>

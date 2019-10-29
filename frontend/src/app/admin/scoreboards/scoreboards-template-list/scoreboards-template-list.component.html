@@ -1,0 +1,86 @@
+<div class="c-scoreboard_templates-list">
+    <section class="content-header">
+        <h1>Scoreboard Templates</h1>
+    </section>
+
+    <div class="content">
+         <div class="box">
+             <div class="box-body">
+
+                <!-- Search -->
+                <form action="javascript:void(0);" (submit)="doSearch()">
+                    <div class="form__search-box" [ngClass]="{'advanced-filter': advanced_filters}">
+                        <div class="form__search-box__common clearfix">
+                            <input class="form-control" type="text" name="common_search" [(ngModel)]="criteria.preFilter['common']" placeholder="Search..." >
+                            <button class="btn btn-default">
+                                <i class="fa fa-search" aria-hidden="true"></i>
+                            </button>
+                            <!-- <a href="javascript:void(0);" (click)="toggleAdvancedFilter()" class="form__search-box__advanced-btn">
+                                <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                                <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                                Advanced Search
+                            </a> -->
+                        </div>
+
+                        <!-- Advanced Search -->
+                        <div class="form__advanced-search-box">
+                            <div class="form__advanced-search-box__body clearfix">
+
+                                <div class="form__advanced-search-box__item clearfix">
+                                    <div class="form__advanced-search-box__label">Name</div>
+                                    <div class="form__advanced-search-box__field">
+                                        <input class="form-control" type="text" autocomplete="off" [(ngModel)]="criteria['preFilter']['name']" name="name">
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="form__advanced-search-box__controls">
+                                <button class="btn btn-primary">Apply Filter</button>
+                                <button (click)="resetFilter($event)" class="btn btn-default">Reset Filter</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="c-groups__top_buttons btn-group">
+                    <a class="btn btn-secondary" routerLink="./new" routerLinkActive="active">Add New</a>
+                </div>
+
+                 <!-- Table List -->
+                <div [ngClass]="{'box-loading': loading}">
+                    <table class="table table-bordered table-condensed table-striped table-hover table-sm">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <wo-sort [woSortActive]="criteria['sort']" woSortStart="name" (sort)="sortBy($event)">Name</wo-sort>
+                                </th>
+                                <th style="width: 40px;">Actions</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr *ngFor="let row of rows">
+                                <td class="td-link" (click)="toProfile(row.id)">{{row['name']}}</td>
+                                <td>
+                                    <div class="table__button-groups btn-group">
+                                        <a [routerLink]="['./', row.id]" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Edit">
+                                            <i class="fa fa-pencil"></i>
+                                        </a>
+                                        <a href="javascript:;" (click)="doDelete(row)" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Edit">
+                                            <i class="fa fa-trash"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr *ngIf="rows.length == 0" class="disabled">
+                                <td colspan="2">{{loading ? 'Loading ...' : 'No matching records found'}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <wo-paginator *ngIf="last_page>1" [last]="last_page" [current]="curr_page" (changePage)="toPage($event)"></wo-paginator>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,17 @@
+<div class="m-message-before-submit-quiz">
+    <h3>
+        Send Your Answers for the Quiz?
+    </h3>
+    <div class="row">
+    <div *ngIf="unselectedQuestionsIndex.length > 0" class="col-12 disabled text-danger">
+        You did not answer for these questions:
+    </div>
+    <div *ngFor="let unselectedQuestionIndex of this.unselectedQuestionsIndex" class="col-12">
+        <p class="unselected-question mb-1"><b>#{{unselectedQuestionIndex}}</b> {{questions[unselectedQuestionIndex-1]['title']}}</p>
+    </div>
+    </div>
+    <div class="bottom__controls">
+        <button class="btn btn-primary" (click)="doSend()">Send</button>
+        <button class="btn btn-secondary" (click)="close()">Cancel</button>
+    </div>
+</div>

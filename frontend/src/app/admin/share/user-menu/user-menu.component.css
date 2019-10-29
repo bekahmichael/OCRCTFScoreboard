@@ -1,0 +1,115 @@
+:host {
+    display: inline-block;
+    position: relative;
+    z-index: 999;
+}
+
+.user-menu__name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 400px;
+    text-align: right;
+    white-space: nowrap;
+    float: left;
+    color: #fff;
+    margin-right: 10px;
+    line-height: 35px;
+}
+
+:host.quiz-part .user-menu__name {
+    width: 100px;
+}
+
+.user-menu__toggle-btn {
+    float: left;
+    padding-right: 5px;
+}
+
+.user-menu__avatar {
+    float: left;
+    color: #fff;
+    width: 35px;
+    height: 36px;
+    text-align: center;
+    line-height: 35px;
+    font-size: 35px;
+    overflow: hidden;
+}
+
+.user-menu__menu-ico {
+    float: left;
+    color: #fff;
+    font-size: 20px;
+    margin-left: 5px;
+    margin-top: 8px;
+    opacity: .6;
+}
+
+.user-menu__dropdown {
+    display: none;
+    position: absolute;
+    top: 45px;
+    right: 0;
+    background: #fff;
+    border: 1px solid #ccc;
+    -webkit-box-shadow: 0 2px 10px rgba(0,0,0,.2);
+    box-shadow: 0 2px 10px rgba(0,0,0,.2);
+}
+
+.open-dropdown .user-menu__dropdown {
+    display: block;
+}
+
+.open-dropdown .user-menu__menu-ico,
+.user-menu__toggle-btn:hover .user-menu__menu-ico {
+    opacity: 1 !important;
+}
+.user-menu__dropdown-item {
+    border-bottom: 1px solid #ccc;
+}
+
+.user-menu__dropdown-item:last-child {
+    border-bottom: none;
+}
+
+.user-menu__dropdown-item a {
+    display: inline-block;
+    padding: 10px 15px;
+    color: #555;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.user-menu__dropdown-item a:hover {
+    color: #333;
+}
+
+.gb_lb {
+    border-color: transparent;
+    border-bottom-color: #fff;
+    border-style: dashed dashed solid;
+    border-width: 0 8.5px 8.5px;
+    position: absolute;
+    right: 27px;
+    top: -8px;
+    z-index: 1;
+    height: 0;
+    width: 0;
+}
+
+.gb_mb {
+    border-color: transparent;
+    border-style: dashed dashed solid;
+    border-width: 0 8.5px 8.5px;
+    position: absolute;
+    height: 0;
+    width: 0;
+    border-bottom-color: #ccc;
+    border-bottom-color: rgba(0,0,0,.2);
+    right: 27px;
+    top: -8px;
+}
+
+.user-menu__dropdown-item a .fa {
+    margin-right: 5px;
+}

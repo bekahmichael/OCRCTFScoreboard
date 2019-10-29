@@ -1,0 +1,29 @@
+.wo-breadcrumbs__item {
+    display: inline-block;
+    font-size: 13px;
+}
+
+.wo-breadcrumbs__item:before {
+    content: '>\00a0';
+    margin-left: 7px;
+    color: #ccc;
+    position: relative;
+    top: 1px;
+}
+
+.wo-breadcrumbs__item:first-child:before {
+    display: none;
+}
+
+.wo-breadcrumbs__item a {
+    color: #444;
+    text-decoration: none;
+}
+
+.wo-breadcrumbs__item a i {
+    margin-right: 2px;
+}
+
+.wo-breadcrumbs__item span {
+    color: #777;
+}

@@ -1,0 +1,59 @@
+<div class="app-wrapper">
+    <div class="l-header" *ngIf="isLogged()">
+        <div class="l-header__logo">
+            <a class="long-logo" routerLink="/admin">
+                <i class="fa fa-rocket" aria-hidden="true"></i>
+                {{title}}
+            </a>
+            <a class="short-logo" routerLink="/admin">
+                <i class="fa fa-rocket" aria-hidden="true"></i>
+            </a>
+        </div>
+        <a href="javascript:void(0)" (click)="sidebarToggle()" class="sidebar-toggle"></a>
+        <app-user-menu></app-user-menu>
+    </div>
+    <div class="l-right">
+        <div class="v-nav">
+            <div class="v-nav__header">
+                MAIN NAVIGATION
+            </div>
+        </div>
+        <ul class="sidebar-menu">
+            <li *ngIf="showUsersMenu()" class="treeview" [routerLinkActive]="['active']">
+                <a routerLink="user" class="d-none"></a>
+                <a routerLink="users">
+                    <i class="fa fa-user-secret" aria-hidden="true"></i>
+                    <span>Users</span>
+                </a>
+            </li>
+            <li class="treeview" [routerLinkActive]="['active']">
+                <a routerLink="teams">
+                    <i class="fa fa-users" aria-hidden="true"></i>
+                    <span>Teams</span>
+                </a>
+            </li>
+            <li class="treeview" [routerLinkActive]="['active']">
+                <a routerLink="events">
+                    <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
+                    <span>Events</span>
+                </a>
+            </li>
+            <li class="treeview" [routerLinkActive]="['active']">
+                <a routerLink="questions">
+                    <i class="fa fa-bars" aria-hidden="true"></i>
+                    <span>Library</span>
+                </a>
+            </li>
+            <li class="treeview" [routerLinkActive]="['active']">
+                <a routerLink="scoreboards">
+                    <i class="fa fa-paint-brush" aria-hidden="true"></i>
+                    <span>Scoreboard Templates</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="l-main">
+        <wo-breadcrumbs *ngIf="isLogged()"></wo-breadcrumbs>
+        <router-outlet></router-outlet>
+    </div>
+</div>

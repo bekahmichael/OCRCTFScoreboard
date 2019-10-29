@@ -1,0 +1,24 @@
+<div class="c-team-tabs">
+    <section class="content-header">
+      <h1>{{staticTitle}}</h1>
+    </section>
+
+    <div class="content">
+        <div class="nav-tabs-custom">
+            <div>
+                <ul class="nav nav-tabs clearfix">
+                    <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                        <a routerLink="./">General Info</a>
+                    </li>
+                    <li *ngIf="id > 0" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                        <a routerLink="./participants">Participants</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="tab-content">
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,89 @@
+<div class="c-event-tabs">
+    <section class="content-header">
+        <h1>{{staticTitle}}</h1>
+    </section>
+
+    <div class="content">
+        <div class="nav-tabs-custom">
+            <div style="position: relative;">
+                <ul class="nav nav-tabs clearfix">
+                    <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                        <a routerLink="./">General Info</a>
+                    </li>
+                    <li *ngIf="id > 0" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                        <a routerLink="./questions">Questions</a>
+                    </li>
+                    <li *ngIf="id > 0" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                        <a routerLink="./teams">Teams</a>
+                    </li>
+                    <li *ngIf="id > 0" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                        <a routerLink="./scoreboard">Scoreboard</a>
+                    </li>
+                    <li *ngIf="id > 0" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                        <a routerLink="./results">Results</a>
+                    </li>
+                </ul>
+
+                <div *ngIf="id > 0 && data" class="btn-group">
+                    <a
+                        *ngIf="data['event2quiz']['status'] === 0 || data['event2quiz']['status'] === 2 || data['event2quiz']['status'] === 3"
+                        (click)="doChangeQuizStatus(1, data)"
+                        href="javascript:;"
+                        class="btn btn-outline-secondary"
+                        title="Play"
+                        [class.btn-outline-secondary]="data['event2quiz']['status'] !== 2"
+                        [class.btn-outline-primary]="data['event2quiz']['status'] === 2"
+                        [class.disabled]="data['event2quiz']['status'] === 3"
+                    >
+                        <i class="fa fa-play"></i>
+                    </a>
+                    <a
+                        *ngIf="data['event2quiz']['status'] === 1"
+                        (click)="doChangeQuizStatus(2, data)"
+                        href="javascript:;"
+                        class="btn btn-outline-primary"
+                        title="Pause"
+                    >
+                        <i class="fa fa fa-pause"></i>
+                    </a>
+                    <a
+                        (click)="doChangeQuizStatus(0, data, true)"
+                        href="javascript:;"
+                        [class.disabled]="data['event2quiz']['status'] === 0 || data['event2quiz']['status'] === 3"
+                        class="btn btn-outline-secondary"
+                        title="Restart"
+                    >
+                        <svg style="transform: translateY(-1px);" xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"/></svg>
+                    </a>
+                    <a
+                        (click)="doChangeQuizStatus(3, data)"
+                        href="javascript:;"
+                        [class.btn-outline-secondary]="data['event2quiz']['status'] !== 3"
+                        [class.btn-outline-primary]="data['event2quiz']['status'] === 3"
+                        [class.disabled]="data['event2quiz']['status'] === 3"
+                        class="btn "
+                        title="Finish"
+                    >
+                        <i class="fa fa-flag"></i>
+                    </a>
+                    <a
+                        *ngIf="data['scoreboard'] !== null"
+                        href="javascript:;"
+                        class="btn btn-outline-secondary"
+                        [class.btn-outline-secondary]="data['scoreboard']['show_final_results'] !== 1"
+                        [class.btn-outline-success]="data['scoreboard']['show_final_results'] === 1"
+                        title="Show/Hide Results on Scoreboard"
+                        (click)="doToggleShowFinalResult(data)"
+                        [class.disabled]="data['event2quiz']['status'] !== 3"
+                    >
+                        <i class="fa fa-list-ol"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="tab-content">
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+    </div>
+</div>

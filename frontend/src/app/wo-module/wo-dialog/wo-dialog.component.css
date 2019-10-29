@@ -1,0 +1,34 @@
+.c-wo-dialog {
+    background: #fff;
+    z-index: 1050;
+    position: relative;
+    width: 300px;
+    top: 0;
+    box-shadow: 0 4px 16px rgba(0,0,0,.2);
+    border: 1px solid rgba(0,0,0,.333);
+    display: inline-block;
+    text-align: left;
+    opacity: 0;
+    transition: top .2s ease 0s, opacity .3s ease 0s;
+    margin-bottom: 50px;
+}
+
+.c-wo-dialog.loaded {
+    opacity: 1;
+    top: 100px;
+}
+
+.c-wo-dialog__close-btn {
+    color: #333;
+    position: absolute;
+    top: 4px;
+    right: 10px;
+    font-size: 20px;
+    opacity: .7;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.c-wo-dialog__close-btn:hover {
+    opacity: 1;
+}

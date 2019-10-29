@@ -1,0 +1,162 @@
+<div class="c-questions-list">
+    <section class="content-header">
+        <h1>Questions List</h1>
+    </section>
+
+    <div class="content">
+        <div class="box">
+            <div class="box-body">
+                <wo-flash></wo-flash>
+                <!-- Search -->
+                <div class="row">
+                    <div class="container-fluid">
+                        <form action="javascript:void(0);" (submit)="doSearch()">
+                            <div class="form__search-box" [ngClass]="{'advanced-filter': advanced_filters}">
+                                <div class="form__search-box__common clearfix">
+                                    <input class="form-control" type="text" name="common_search"
+                                           [(ngModel)]="criteria.preFilter['common']" placeholder="Search...">
+                                    <button class="btn btn-secondary">
+                                        <i class="fa fa-search" aria-hidden="true"></i>
+                                    </button>
+                                    <a href="javascript:void(0);" (click)="toggleAdvancedFilter()"
+                                       class="form__search-box__advanced-btn">
+                                        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                                        <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                                        Advanced Search
+                                    </a>
+                                </div>
+        
+                                <!-- Advanced Search -->
+                                <div class="form__advanced-search-box">
+                                    <div class="form__advanced-search-box__body clearfix">
+        
+                                        <div class="form__advanced-search-box__item clearfix">
+                                            <div class="form__advanced-search-box__label">Title</div>
+                                            <div class="form__advanced-search-box__field">
+                                                <input class="form-control" type="text" autocomplete="off"
+                                                       [(ngModel)]="criteria['preFilter']['title']" name="title">
+                                            </div>
+                                        </div>
+        
+        
+                                        <div class="form__advanced-search-box__item clearfix">
+                                            <div class="form__advanced-search-box__label">Created From</div>
+                                            <div class="form__advanced-search-box__field">
+                                                <wo-datepicker [(ngModel)]="criteria['preFilter']['created_at_from']"
+                                                               name="null"></wo-datepicker>
+                                            </div>
+                                        </div>
+        
+        
+                                        <div class="form__advanced-search-box__item clearfix">
+                                            <div class="form__advanced-search-box__label">Created To</div>
+                                            <div class="form__advanced-search-box__field">
+                                                <wo-datepicker [(ngModel)]="criteria['preFilter']['created_at_to']"
+                                                               name="null"></wo-datepicker>
+                                            </div>
+                                        </div>
+        
+                                        <div class="form__advanced-search-box__item clearfix">
+                                            <div class="form__advanced-search-box__label">Status</div>
+                                            <div class="form__advanced-search-box__field">
+                                                <select class="form-control" name="status" [(ngModel)]="criteria['preFilter']['status']">
+                                                    <option value=""></option>
+                                                    <option *ngFor="let status of STATUS_LABELS; let statusI=index" value="{{statusI}}">{{status}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+        
+                                        <div class="form__advanced-search-box__item clearfix">
+                                            <div class="form__advanced-search-box__label">Type</div>
+                                            <div class="form__advanced-search-box__field">
+                                                <select class="form-control" name="type" [(ngModel)]="criteria['preFilter']['type']">
+                                                    <option value=""></option>
+                                                    <option *ngFor="let type of TYPES; let typeI=index" value="{{typeI}}">{{type}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form__advanced-search-box__controls">
+                                        <button class="btn btn-primary">Apply Filter</button>
+                                        <button (click)="resetFilter($event)" class="btn btn-default">Reset Filter</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="c-groups__top_buttons btn-group">
+                    <a class="btn btn-secondary" routerLink="./new" routerLinkActive="active">Add New</a>
+                </div>
+
+                <!-- Table List -->
+                <div [ngClass]="{'box-loading': loading}">
+                    <table class="table table-bordered table-condensed table-striped table-hover table-sm">
+                        <thead>
+                        <tr>
+                            <th>
+                                <wo-sort [woSortActive]="criteria['sort']" woSortStart="title" (sort)="sortBy($event)">
+                                    Title
+                                </wo-sort>
+                            </th>
+                            <th>
+                                <wo-sort [woSortActive]="criteria['sort']" woSortStart="description"
+                                         (sort)="sortBy($event)">Description
+                                </wo-sort>
+                            </th>
+                            <th>
+                                <wo-sort [woSortActive]="criteria['sort']" woSortStart="status" (sort)="sortBy($event)">
+                                    Status
+                                </wo-sort>
+                            </th>
+                            <th>
+                                <wo-sort [woSortActive]="criteria['sort']" woSortStart="type" (sort)="sortBy($event)">
+                                    Type
+                                </wo-sort>
+                            </th>
+                            <th style="width: 110px;">
+                                <wo-sort [woSortActive]="criteria['sort']" woSortStart="created_at"
+                                         (sort)="sortBy($event)">Created At
+                                </wo-sort>
+                            </th>
+                            <th style="width: 110px;">
+                                <wo-sort [woSortActive]="criteria['sort']" woSortStart="updated_at"
+                                         (sort)="sortBy($event)">Updated At
+                                </wo-sort>
+                            </th>
+                            <th style="width: 110px; text-align: center;">Actions</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        <tr *ngFor="let row of rows" (click)="toQuestion(row.id); $event.stopPropagation();">
+                            <td class="td-link">{{row['title']}}</td>
+                            <td class="td-link">{{row['description']}}</td>
+                            <td class="td-link">{{STATUS_LABELS[row['status']]}}</td>
+                            <td class="td-link">{{TYPES[row['type']]}}</td>
+                            <td class="td-link">{{row['created_at'] | date}}</td>
+                            <td class="td-link">{{row['updated_at'] | date}}</td>
+                            <td>
+                                <div class="table__button-groups btn-group">
+                                    <a [routerLink]="['./', row.id]" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Edit">
+                                        <i class="fa fa-pencil"></i>
+                                    </a>
+                                    <a href="javascript:;" (click)="doDelete(row); $event.stopPropagation();" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Delete">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr *ngIf="rows.length == 0" class="disabled">
+                            <td colspan="7">{{loading ? 'Loading ...' : 'No matching records found'}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <wo-paginator *ngIf="last_page>1" [last]="last_page" [current]="curr_page"
+                              (changePage)="toPage($event)"></wo-paginator>
+            </div>
+        </div>
+    </div>
+</div>

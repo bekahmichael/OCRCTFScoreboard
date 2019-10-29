@@ -1,0 +1,107 @@
+:host {
+    display: inline-block;
+}
+
+input[type=text] {
+    width: 85px;
+    padding-left: 8px;
+    padding-right: 8px;
+    font-family: monospace;
+    font-size: 14px;
+}
+
+.wo-timepicker {
+    display: inline-block;
+    position: relative;
+}
+
+.wo-timepicker__controls {
+    display: inline-flex;
+    border: 1px solid #ddd;
+    top: calc(100% + 4px);
+    position: absolute;
+    padding: 10px;
+    border-radius: 4px;
+    background: #fff;
+    font-family: Arial;
+    user-select: none;
+    z-index: 1;
+}
+
+.wo-timepicker__controls-up {
+    width: 22px;
+    cursor: pointer;
+    height: 20px;
+    text-align: center;
+    margin-right: 5px;
+    margin-left: 5px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    display: flex;
+    padding: 2px;
+}
+
+.wo-timepicker__controls-down {
+    width: 22px;
+    cursor: pointer;
+    height: 20px;
+    text-align: center;
+    margin-right: 5px;
+    margin-left: 5px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    display: flex;
+    padding: 2px;
+}
+
+.wo-timepicker__controls-down:hover ,
+.wo-timepicker__controls-up:hover {
+    border-color: #eee;
+}
+
+.wo-timepicker__controls-value {
+    text-align: center;
+    margin-right: 5px;
+    margin-left: 5px;
+}
+
+.wo-timepicker__controls-up svg {
+    width: 17px;
+    height: 18px;
+    vertical-align: top;
+    opacity: .9;
+    transform: translateY(-3px);
+}
+
+.wo-timepicker__controls-down svg {
+    width: 17px;
+    height: 18px;
+    opacity: .9;
+    transform: translateY(-3px);
+}
+
+.gb_mb {
+    border-color: transparent;
+    border-style: dashed dashed solid;
+    border-width: 0 8.5px 8.5px;
+    position: absolute;
+    height: 0;
+    width: 0;
+    border-bottom-color: #ccc;
+    border-bottom-color: rgba(0,0,0,.4);
+    left: 5px;
+    top: -9px;
+}
+
+.gb_lb {
+    border-color: transparent;
+    border-bottom-color: #fff;
+    border-style: dashed dashed solid;
+    border-width: 0 8.5px 8.5px;
+    position: absolute;
+    left: 5px;
+    top: -9px;
+    z-index: 1;
+    height: 0;
+    width: 0;
+}

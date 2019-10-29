@@ -1,0 +1,41 @@
+<div class="c-login-form__wrapper">
+        <div class="c-login-form">
+            <div class="c-login-form__title">
+                Quiz Access
+            </div>
+            <div class="c-login-form__content">
+                <div *ngIf="isLoading" class="slider__wrapper">
+                    <div class="slider">
+                      <div class="line"></div>
+                      <div class="break dot1"></div>
+                      <div class="break dot2"></div>
+                      <div class="break dot3"></div>
+                    </div>
+                </div>
+
+                <div class="c-login-form__note">
+                    Please enter your PIN
+                </div>
+
+                <form action="javascript:;" (submit)="doLogin()">
+                    <div class="b-form-row">
+                        <div class="b-form-row__field">
+                            <div class="b-form-row__field-icon">
+                                <i class="fa fa-key" aria-hidden="true"></i>
+                                <input class="form-control" [ngClass]="{'error': formErrors?.pin }" placeholder="Access PIN code" [(ngModel)]="pin" type="text" name="pin">
+                            </div>
+                            <div [ngClass]="{show: formErrors?.pin}" class="label-error">
+                                {{formErrors?.pin}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-controls">
+                        <button [ngClass]="{'btn-loading':isLoading}">
+                            <i class="fa fa-sign-in" aria-hidden="true"></i>
+                            Log In
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>

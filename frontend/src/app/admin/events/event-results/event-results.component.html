@@ -1,0 +1,172 @@
+<div class="c-event-results" [class.is-loading]="isLoading">
+    <section class="content-header">
+        <h1>
+            Event Results
+        </h1>
+    </section>
+
+    <div style="padding-left: 15px; padding-right: 15px; padding-top: 10px;">
+        <wo-flash></wo-flash>
+    </div>
+
+    <div class="top-controls">
+        <button
+            (click)="hasPointChanges ? doSaveChanges() : null"
+            class="btn btn-sm"
+            [class.btn-success]="hasPointChanges === true"
+            [class.disabled]="hasPointChanges === false"
+        >
+            Save Changes
+        </button>
+
+        <a class="btn btn-sm btn-primary" href="{{linkReportByQuiz}}" target="_blank" style="margin-left: auto; margin-right: 5px;">
+            <i class="fa fa-file-excel-o" aria-hidden="true"></i>
+            All Teams Report
+        </a>
+
+        <button (click)="loadData(); isUpdate = true" class="btn btn-sm btn-info">
+            <i class="fa fa-refresh" [class.do-rotate]="isUpdate" aria-hidden="true"></i>
+            Update Info
+        </button>
+    </div>
+
+    <div class="content">
+        <table class="table table-bordered table-condensed table-striped table-sm">
+            <thead>
+                <th style="width: 30px;">
+                    <i (click)="doShowAll()" class="fa" [class.fa-plus-square-o]="!showAll" [class.fa-minus-square-o]="showAll"></i>
+                </th>
+                <th>Team name</th>
+                <th style="width: 100px; text-align: right;">Scores</th>
+                <th style="width: 100px; text-align: right;">Rank</th>
+                <th style="width: 100px; text-align: center;">Actions</th>
+            </thead>
+            <tbody>
+                <ng-container *ngFor="let team of teams">
+                    <tr>
+                        <td>
+                            <i (click)="doShow(team)" class="fa" [class.fa-plus-square-o]="!team._show" [class.fa-minus-square-o]="team._show"></i>
+                        </td>
+                        <td>{{team.name}}</td>
+                        <td style="text-align: right;">
+                            {{team.scores | number : '0.1'}}
+                        </td>
+                        <td style="text-align: right;">
+                            {{team.rank === null ? 'N/A' : team.rank}}
+                        </td>
+                        <td>
+                            <a class="btn btn-sm btn-primary btn__team-report" [href]="team.reportUrl">
+                                <i class="fa fa-file-excel-o" aria-hidden="true"></i> Team Report
+                            </a>
+                        </td>
+                    </tr>
+                    <tr [class.d-none]="!team._show">
+                        <td style="border-right: 1px solid #fff;"></td>
+                        <td colspan="4" style="padding: 30px;">
+
+
+
+
+                            <table class="table table-bordered table-condensed table-striped table-hover table-sm">
+                                <thead>
+                                    <th style="width: 25px;"></th>
+                                    <th>Question Title</th>
+                                    <th style="width: 350px;">Team Answers</th>
+                                    <th style="width: 80px; text-align: right;">Level</th>
+                                    <th style="width: 80px; text-align: right;">Points</th>
+                                    <th style="width: 80px; text-align: center;">Correct</th>
+                                    <th style="width: 105px; text-align: right;">Final Points</th>
+                                </thead>
+                                <tbody *ngIf="questions.length > 0">
+                                    <tr
+                                        *ngFor="let question of questions"
+                                        [class.table-warning]="question.type === 3"
+                                    >
+                                        <td>
+                                            <i
+                                                class="fa"
+                                                [ngClass]="{
+                                                    'text-success fa-check' : isAnswered(team, question),
+                                                    'text-warning fa-circle-o' : !isAnswered(team, question)
+                                                }"
+                                                aria-hidden="true"
+                                            ></i>
+                                            <i></i>
+                                        </td>
+                                        <td>{{question.title}}</td>
+                                        <td>
+                                            <ng-container *ngIf="question.type === 0 || question.type === 1 || question.type === 2">
+                                                <div *ngFor="let answer of question.answers">
+                                                    <i *ngIf="isCheckedAnswer(answer, team['answers'][question.id]) === true" class="fa fa-check-square-o" aria-hidden="true"></i>
+                                                    <i *ngIf="isCheckedAnswer(answer, team['answers'][question.id]) === false" class="fa fa-square-o" aria-hidden="true"></i>
+                                                    {{answer.description}}
+                                                </div>
+                                            </ng-container>
+
+                                            <ng-container *ngIf="question.type === 3 && team['answers'][question.id]">
+                                                {{team['answers'][question.id]['answer_text']}}
+                                            </ng-container>
+                                        </td>
+                                        <td style="text-align: right;">
+                                            {{question.level}}
+                                        </td>
+                                        <td style="text-align: right;">
+                                            {{question.points | number:'0.1'}}
+                                        </td>
+                                        <td style="text-align: center;">
+                                            <div *ngIf="team['answers'][question['id']]">
+                                                <div class="text-success" *ngIf="team['answers'][question['id']]['is_correct'] === true">
+                                                    <b>Yes</b>
+                                                </div>
+                                                <div class="text-danger" *ngIf="team['answers'][question['id']]['is_correct'] === false">
+                                                    <b>No</b>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <input
+                                                class="form-control form-control-sm"
+                                                [class.has-changes]="team['answers'][question['id']] && team['answers'][question['id']]['_hasChanges'] === true"
+                                                [class.was-changed]="team['answers'][question['id']] && team['answers'][question['id']]['change_points_to'] !== '' && team['answers'][question['id']]['change_points_to'] !== null"
+                                                type="number"
+                                                step="0.1"
+                                                min="0"
+                                                max="9999"
+                                                value="{{team['answers'][question['id']] ? team['answers'][question['id']]['change_points_to'] : ''}}"
+                                                (keydown)="doChangePointsTo($event, team, question['id'], team['answers'][question['id']])"
+                                                (keyup)="doChangePointsTo($event, team, question['id'], team['answers'][question['id']])"
+                                                (change)="doChangePointsTo($event, team, question['id'], team['answers'][question['id']])"
+                                                placeholder="{{(team['answers'][question['id']] && team['answers'][question['id']]['is_correct'] ? question.points : 0) | number:'0.1'}}"
+                                            >
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tbody *ngIf="questions.length === 0">
+                                    <tr>
+                                        <td colspan="6">
+                                            No Questions
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+
+
+                        </td>
+                    </tr>
+                </ng-container>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="bottom-controls">
+        <button
+            (click)="hasPointChanges ? doSaveChanges() : null"
+            class="btn btn-sm"
+            [class.btn-success]="hasPointChanges === true"
+            [class.disabled]="hasPointChanges === false"
+        >
+            Save Changes
+        </button>
+    </div>
+</div>

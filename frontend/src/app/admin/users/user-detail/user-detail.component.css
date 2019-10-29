@@ -1,0 +1,35 @@
+.form-row {
+    overflow: hidden;
+    padding: 5px;
+    padding-bottom: 10px;
+}
+
+.form-row__label {
+    float: left;
+    padding-top: 6px;
+    width: 160px;
+}
+
+.form-row__field {
+    float: left;
+}
+
+.form-row__field input[type=text],
+.form-row__field input[type=password],
+.form-row__field select {
+    width: 220px;
+}
+
+.password-group {
+    padding-top: 20px;
+}
+
+.controls-group {
+    padding-top: 10px;
+}
+
+.hasError input[type=text],
+.hasError input[type=password] {
+    border-color: #dd4b39;
+    box-shadow: none;
+}

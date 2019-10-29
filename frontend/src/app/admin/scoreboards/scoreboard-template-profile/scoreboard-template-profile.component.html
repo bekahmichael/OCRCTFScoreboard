@@ -1,0 +1,109 @@
+<div class="c-scoreboard-template-profile">
+    <section class="content-header">
+      <h1>Scoreboard Template Profile</h1>
+    </section>
+
+    <div class="content" [class.is-loading]="isLoading === true">
+        <div class="box">
+            <div class="box-body">
+                <wo-flash></wo-flash>
+
+                <svg class="loading-spinner" *ngIf="isLoading === true" version="1.1" id="L9" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                    viewBox="0 0 100 100" enable-background="new 0 0 0 0" xml:space="preserve">
+                    <path fill="#007bff" d="M73,50c0-12.7-10.3-23-23-23S27,37.3,27,50 M30.9,50c0-10.5,8.5-19.1,19.1-19.1S69.1,39.5,69.1,50">
+                        <animateTransform
+                        attributeName="transform"
+                        attributeType="XML"
+                        type="rotate"
+                        dur="1s"
+                        from="0 50 50"
+                        to="360 50 50"
+                        repeatCount="indefinite" />
+                    </path>
+                </svg>
+
+                <form action="javascript:void(0)" (submit)="doSave()">
+                    <h4>General Info</h4>
+
+                    <div class="form-row">
+                        <div class="form-label">
+                            Template Name:
+                        </div>
+                        <div class="form-field" [ngClass]="{hasError: dataErrors['name']}">
+                            <input type="text" class="form-control" name="name" [(ngModel)]="dataForm['name']">
+                        </div>
+                    </div>
+
+                    <h4>Layer Settings</h4>
+
+                    <div class="form-row">
+                        <div class="form-label">
+                            Background Color:
+                        </div>
+                        <div class="form-field">
+                            <wo-colorpicker name="background_color" [(ngModel)]="dataForm['background_color']"></wo-colorpicker>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-label">
+                            Background Image:
+                        </div>
+                        <div class="form-field">
+                            <upload-image
+                                name="background_image_file_id"
+                                style="min-height: 50px;"
+                                (changeImage)="onImageChanged($event, 'background_image_file_id')"
+                                [woId]="dataForm['background_image_file_id'] || null"
+                                [woSrc]="api.baseUrl + '/files/image?r=250x250'"
+                                [woFullSrc]="api.baseUrl + '/files/image?r=900x900'"
+                            ></upload-image>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-label">
+                            Foreground Color:
+                        </div>
+                        <div class="form-field">
+                            <wo-colorpicker mode="rgba" name="foreground_color" [(ngModel)]="dataForm['foreground_color']"></wo-colorpicker>
+                        </div>
+                    </div>
+
+                    <h4>Font Settings</h4>
+
+                    <div class="form-row">
+                        <div class="form-label">
+                            Text Color:
+                        </div>
+                        <div class="form-field">
+                            <wo-colorpicker name="text_color" [(ngModel)]="dataForm['text_color']"></wo-colorpicker>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-label">
+                            Title Color:
+                        </div>
+                        <div class="form-field">
+                            <wo-colorpicker name="title_color" [(ngModel)]="dataForm['title_color']"></wo-colorpicker>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-label">
+                            Columns Color:
+                        </div>
+                        <div class="form-field">
+                            <wo-colorpicker name="column_color" [(ngModel)]="dataForm['column_color']"></wo-colorpicker>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary">
+                        Save
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

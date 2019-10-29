@@ -1,0 +1,47 @@
+<div class="wo-timepicker" #wrapper>
+    <input
+        type="text"
+        maxlength="8"
+        class="form-control"
+        name="def_name"
+        (change)="onChange($event)"
+        (focus)="open()"
+        placeholder="--:--"
+        autocomplete="off"
+        [(ngModel)]="showValue"
+        (blur)="doBlur($event)"
+    >
+    <div class="wo-timepicker__controls" *ngIf="isOpen">
+        <div class="gb_mb"></div>
+        <div class="gb_lb"></div>
+        <div class="wo-timepicker__controls-hours">
+            <div class="wo-timepicker__controls-up" (click)="doUpHour()">
+                <svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1683 1331l-166 165q-19 19-45 19t-45-19l-531-531-531 531q-19 19-45 19t-45-19l-166-165q-19-19-19-45.5t19-45.5l742-741q19-19 45-19t45 19l742 741q19 19 19 45.5t-19 45.5z"/></svg>
+            </div>
+            <div class="wo-timepicker__controls-value">{{hours >= 0 && hours <= 9 ? '0' : ''}}{{hours}}</div>
+            <div class="wo-timepicker__controls-down" (click)="doDownHour()">
+                <svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1683 808l-742 741q-19 19-45 19t-45-19l-742-741q-19-19-19-45.5t19-45.5l166-165q19-19 45-19t45 19l531 531 531-531q19-19 45-19t45 19l166 165q19 19 19 45.5t-19 45.5z"/></svg>
+            </div>
+        </div>
+        <div class="wo-timepicker__controls-minutes">
+            <div class="wo-timepicker__controls-up" (click)="doUpMinute()">
+                <svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1683 1331l-166 165q-19 19-45 19t-45-19l-531-531-531 531q-19 19-45 19t-45-19l-166-165q-19-19-19-45.5t19-45.5l742-741q19-19 45-19t45 19l742 741q19 19 19 45.5t-19 45.5z"/></svg>
+            </div>
+            <div class="wo-timepicker__controls-value">{{minutes >= 0 && minutes <= 9 ? '0' : ''}}{{minutes}}</div>
+            <div class="wo-timepicker__controls-down" (click)="doDownMinute()">
+                <svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1683 808l-742 741q-19 19-45 19t-45-19l-742-741q-19-19-19-45.5t19-45.5l166-165q19-19 45-19t45 19l531 531 531-531q19-19 45-19t45 19l166 165q19 19 19 45.5t-19 45.5z"/></svg>
+            </div>
+        </div>
+        <div class="wo-timepicker__controls-periods">
+            <div class="wo-timepicker__controls-up" (click)="doChangePeriod()">
+                <svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1683 1331l-166 165q-19 19-45 19t-45-19l-531-531-531 531q-19 19-45 19t-45-19l-166-165q-19-19-19-45.5t19-45.5l742-741q19-19 45-19t45 19l742 741q19 19 19 45.5t-19 45.5z"/></svg>
+            </div>
+            <div class="wo-timepicker__controls-value">
+                {{isAM ? 'AM' : 'PM'}}
+            </div>
+            <div class="wo-timepicker__controls-down" (click)="doChangePeriod()">
+                <svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1683 808l-742 741q-19 19-45 19t-45-19l-742-741q-19-19-19-45.5t19-45.5l166-165q19-19 45-19t45 19l531 531 531-531q19-19 45-19t45 19l166 165q19 19 19 45.5t-19 45.5z"/></svg>
+            </div>
+        </div>
+    </div>
+</div>

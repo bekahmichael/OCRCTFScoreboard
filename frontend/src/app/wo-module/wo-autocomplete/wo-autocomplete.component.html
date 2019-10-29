@@ -1,0 +1,14 @@
+<div class="wo-autocomplete">
+    <div *ngIf="isLoading" class="wo-autocomplete__loader"></div>
+    <ng-content></ng-content>
+    <div *ngIf="showResult && items.length > 0" class="wo-autocomplete__items">
+        <div
+            *ngFor="let item of items; let i = index"
+            class="wo-autocomplete__item"
+            (click)="setValue(item)"
+            [ngClass]="{selected: selectedItem == i}"
+            [innerHTML]="item[valueName] | woHighlight: curVal"
+        >
+        </div>
+    </div>
+</div>

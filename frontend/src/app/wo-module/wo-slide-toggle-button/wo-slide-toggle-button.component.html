@@ -1,0 +1,8 @@
+<div class="wo-slide-toggle-button" (click)="onToggle()" [ngClass]="{'wo-slide-toggle-button_checked': isChecked, 'wo-slide-toggle-button_disabled': disabled}">
+    <div *ngIf="isChecked === true" class="wo-slide-toggle_on">
+        {{textON}}
+    </div>
+    <div *ngIf="isChecked === false" class="wo-slide-toggle_off">
+        {{textOFF}}
+    </div>
+</div>

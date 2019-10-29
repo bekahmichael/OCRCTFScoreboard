@@ -1,0 +1,11 @@
+::ng-deep .wo-slide-toggle {
+    transform: translateY(-2px);
+}
+
+::ng-deep .wo-slide-toggle_checked {
+    background: rgba(56,142,60,.5) !important;
+}
+
+::ng-deep .wo-slide-toggle_checked .wo-slide-toggle-thumb {
+    background-color: #388e3c !important;
+}

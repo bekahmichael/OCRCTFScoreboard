@@ -1,0 +1,84 @@
+:host {
+    display: inline-block;
+}
+
+.wo-datalist {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+.wo-datalist:after {
+    content: '';
+    position: absolute;
+    top: 9px;
+    right: 9px;
+    border: solid #444;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 3px;
+    transform: rotate(45deg);
+    opacity: .4;
+}
+
+.wo-datalist:hover:after {
+    opacity: .9;
+}
+
+.wo-datalist > input {
+    padding-right: 20px;
+    width: 100%;
+}
+
+.wo-datalist__items {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    border: 1px solid #ddd;
+    cursor: default;
+    max-height: 170px;
+    overflow: hidden;
+    overflow-y: auto;
+    min-width: 100%;
+    box-sizing: border-box;
+    background: #fff;
+}
+
+.wo-datalist__items::-webkit-scrollbar {
+    width: 6px;
+}
+
+.wo-datalist__items::-webkit-scrollbar-track {
+    background: #ddd;
+}
+
+.wo-datalist__items::-webkit-scrollbar-thumb {
+    background: #777;
+}
+
+.wo-datalist__items ::ng-deep div {
+    padding: 5px 10px;
+    white-space: nowrap;
+}
+
+.wo-datalist__items ::ng-deep div:after {
+    content: "\00a0";
+}
+
+.wo-datalist__items ::ng-deep div:hover {
+    background: #dfdfdf;
+}
+
+input:focus + .wo-datalist__items {
+    display: block;
+}
+
+.wo-datalist__items ::ng-deep .wo-datalist_checked,
+.wo-datalist__items ::ng-deep .wo-datalist_checked:hover {
+    background: #e3f2fd;
+}
+
+.wo-datalist__items ::ng-deep .wo-datalist_hide {
+    display: none;
+}

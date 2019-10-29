@@ -1,0 +1,4 @@
+<div class="wo-slide-toggle" [ngClass]="{'wo-slide-toggle_checked': isChecked}">
+    <div class="wo-slide-toggle-thumb"></div>
+    <input [checked]="isChecked" type="checkbox" (change)="onChange($event)">
+</div>

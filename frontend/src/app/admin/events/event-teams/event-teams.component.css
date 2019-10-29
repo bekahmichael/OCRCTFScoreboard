@@ -1,0 +1,47 @@
+::ng-deep .wo-slide-toggle_checked {
+    background: rgba(56,142,60,.5) !important;
+}
+
+::ng-deep .wo-slide-toggle_checked .wo-slide-toggle-thumb {
+    background-color: #388e3c !important;
+}
+
+.c-teams-list__top-controls {
+    display: flex;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.c-teams-list__only-assigned-filter {
+    white-space: nowrap;
+    margin-left: auto;
+    margin-top: 4px;
+}
+
+.c-teams-list__only-assigned-filter wo-slide-toggle {
+    transform: translateY(-2px) translateX(1px);
+    display: inline-block;
+}
+
+.pin-value {
+    font-family: monospace;
+    font-size: 16px;
+    line-height: 28px;
+}
+
+.pin-wrapper {
+    display: flex;
+}
+
+.pin-controller {
+    margin-left: auto;
+    padding-left: 5px;
+}
+
+.pin-controller i {
+    cursor: pointer;
+}
+
+.c-teams-list__top-controls__buttons button {
+    margin-right: 10px;
+}

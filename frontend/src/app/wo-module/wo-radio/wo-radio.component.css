@@ -1,0 +1,38 @@
+:host {
+    display: inline-block;
+}
+
+.wo-radio {
+    width: 16px;
+    height: 16px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    display: inline-block;
+    border: 2px solid rgba(0,0,0,.44);
+    border-radius: 50%;
+    position: relative;
+    top: 3px;
+}
+
+.wo-radio.checked {
+    border: 2px solid #4a8cf6;
+}
+
+.wo-radio.checked:before {
+    content: '';
+    display: inline-block;
+    border: 3px solid #4a8cf6;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    margin-top: -3px;
+    left: 50%;
+    margin-left: -3px;
+}
+
+.wo-radio input {
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+}

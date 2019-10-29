@@ -1,0 +1,38 @@
+<div class="m-admin-access-to-teams" [class.in-progress]="isProcess">
+    <h3>
+        Send Access to Participant Emails
+    </h3>
+
+    <wo-flash block="sendEmail"></wo-flash>
+
+    <div>
+        <table class="table table-bordered table-condensed table-striped table-hover table-sm">
+            <thead>
+                <th style="width: 20px;">
+                    <wo-checkbox (change)="doSelectAll()" [(ngModel)]="allChecked"></wo-checkbox>
+                </th>
+                <th>Name</th>
+                <th style="width: 50px;">Status</th>
+            </thead>
+            <tr *ngFor="let row of teams">
+                <th>
+                    <wo-checkbox [(ngModel)]="row.is_checked"></wo-checkbox>
+                </th>
+                <td>{{row.name}}</td>
+                <td [class.success]="row.is_ok === true" [class.fail]="row.is_fail === true" style="text-align: center;">
+                    {{row.status}}
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="bottom__controls">
+        <button class="btn btn-primary" (click)="doSend()">
+            <svg *ngIf="isProcess" viewBox='-100 -100 200 200'>
+                <g><circle r='80'/></g>
+            </svg>
+            Send
+        </button>
+        <button class="btn btn-secondary" (click)="close()">Cancel</button>
+    </div>
+</div>

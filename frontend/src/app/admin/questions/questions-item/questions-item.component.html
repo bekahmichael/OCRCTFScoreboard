@@ -1,0 +1,106 @@
+<div class="c-questions-item">
+    <section class="content-header">
+        <h1>{{dataForm['id'] == 0 ? 'New' : 'Edit'}} Question</h1>
+    </section>
+
+    <div class="content">
+        <wo-flash></wo-flash>
+        <div class="row">
+            <div class="col-4">
+                <div class="box">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Question</h3>
+                    </div>
+                    <div class="box-body">
+                        <form action="javascript:;" (submit)="doSave()">
+                            <div class="form-row">
+                                <div class="form-label col-4">
+                                    Title <i class="ico-star">*</i>
+                                </div>
+                                <div class="form-field col-8"
+                                     [ngClass]="{hasError: dataErrors['title'] }">
+                                    <textarea class="form-control" name="title"
+                                              [(ngModel)]="dataForm['title']"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-label col-12">
+                                    <label>
+                                        <wo-checkbox [trueValue]="1" [falseValue]="0" [(ngModel)]="dataForm['show_description']" [ngModelOptions]="{standalone: true}"></wo-checkbox>
+                                        Additional description
+                                    </label>
+                                </div>
+                            </div>
+                            <div *ngIf="dataForm['show_description'] === 1" class="form-row disabled">
+                                <div class="form-label col-4">
+                                    Description
+                                </div>
+                                <div class="form-field col-8"
+                                     [ngClass]="{hasError: dataErrors['description']}">
+                                    <textarea class="form-control" name="description"
+                                              [(ngModel)]="dataForm['description']"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="w-100">
+                                    <upload-image
+                                        (changeImage)="onImageChanged($event, dataForm)"
+                                        [woId]="dataForm['file_id'] || null"
+                                        [woSrc]="api.baseUrl + '/files/image?r=150x150&type=adaptive'"
+                                        [woFullSrc]="api.baseUrl + '/files/image'"
+                                    ></upload-image>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-label col-4">
+                                    Type <i class="ico-star">*</i>
+                                </div>
+                                <div class="form-field col-8"
+                                     [ngClass]="{hasError: dataErrors['type']}">
+                                    <select class="form-control" name="type"
+                                            [(ngModel)]="dataForm['type']">
+                                        <option *ngFor="let type of TYPES; let typeI=index" value="{{typeI}}">{{type}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-label col-4">
+                                    Points <i class="ico-star">*</i>
+                                </div>
+                                <div class="form-field col-8"
+                                     [ngClass]="{hasError: dataErrors['points']}">
+                                    <input type="number" min="0" step="0.5" name="points" class="form-control" [(ngModel)]="dataForm['points']"/>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-label col-4">
+                                    Level <i class="ico-star">*</i>
+                                </div>
+                                <div class="form-field col-8"
+                                     [ngClass]="{hasError: dataErrors['level']}">
+                                    <input type="number" min="1" step="1" name="level" class="form-control" [(ngModel)]="dataForm['level']"/>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-label col-4">
+                                    Status <i class="ico-star">*</i>
+                                </div>
+                                <div class="form-field col-8" [ngClass]="{hasError: dataErrors['status']}">
+                                    <select class="form-control" name="status" [(ngModel)]="dataForm['status']">
+                                        <option *ngFor="let status of STATUS_LABELS; let statusI=index" value="{{statusI}}">{{status}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="controls-group btn-group">
+                                <button class="btn btn-success">{{dataForm['id'] == 0 ? 'Create' : 'Update'}}</button>
+                            </div>                            
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="dataForm['id'] > 0" class="col-8">
+                <question-answers [questionId]="itemId" [questionType]="dataForm['type']" [answers]="dataForm['answers']" (answersChanged)="setQuestionAnswers($event, dataForm)" (questionNeedUpdate)="setQuestionNeedUpdate($event, dataForm, true)"></question-answers>
+            </div>
+        </div>
+    </div>
+</div>

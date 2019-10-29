@@ -1,0 +1,55 @@
+.form-row {
+    margin-left: 0;
+}
+
+h4 {
+    padding-bottom: 20px;
+}
+
+form {
+    padding: 10px;
+}
+
+.form-label {
+    width: 150px;
+}
+
+.form-row {
+    padding-bottom: 15px;
+}
+
+.form-field {
+    padding-left: 15px;
+}
+
+upload-image {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+::ng-deep .upload-image__no-photo {
+    transform: translateY(4px);
+}
+
+.form-field {
+    width: 250px;
+}
+
+.hasError input[type=text],
+.hasError textarea,
+.hasError select {
+    border-color: #dd4b39;
+    box-shadow: none;
+}
+
+.loading-spinner {
+    width: 40px;
+    height: 40px;
+    float: right;
+}
+
+.is-loading {
+    cursor: progress;
+    opacity: .7;
+}

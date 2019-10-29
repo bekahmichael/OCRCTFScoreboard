@@ -1,0 +1,24 @@
+<div class="wo-paginator">
+    <div class="wo-paginator__item"
+        [class.wo-paginator__item_disabled]="current==1"
+    >
+        <a class="wo-paginator__link" href="javascript:;" (click)="prev()">«</a>
+    </div>
+    <div
+        class="wo-paginator__item"
+        *ngFor="let page of pagerList"
+        [class.wo-paginator__item_active]="page.isActive"
+        [class.wo-paginator__item_disabled]="page.isDisabled"
+    >
+        <a
+            class="wo-paginator__link"
+            (click)="setPage(page)"
+            href="javascript:;"
+        >{{page.num}}</a>
+    </div>
+    <div class="wo-paginator__item"
+        [class.wo-paginator__item_disabled]="current==last"
+    >
+        <a class="wo-paginator__link" href="javascript:;" (click)="next()">»</a>
+    </div>
+</div>

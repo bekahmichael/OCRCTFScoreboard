@@ -1,0 +1,17 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* Bootstrap Module */
+// $secondary: #D8D8D8;
+@import "~bootstrap/scss/bootstrap";
+
+/* For All Modules */
+@import "~./assets/styles/common";
+
+/* For Admin Module */
+@import "~./assets/styles/admin";
+
+/* For Public Module */
+@import "~./assets/styles/public";
+
+/* For Quiz Module */
+@import "~./assets/styles/quiz";

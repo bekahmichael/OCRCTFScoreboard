@@ -1,0 +1,106 @@
+<div class="c-events-list" [class.is-loading]="isLoading === true">
+
+    <svg class="loading-spinner" *ngIf="isLoading === true" version="1.1" id="L9" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+        viewBox="0 0 100 100" enable-background="new 0 0 0 0" xml:space="preserve">
+        <path fill="#007bff" d="M73,50c0-12.7-10.3-23-23-23S27,37.3,27,50 M30.9,50c0-10.5,8.5-19.1,19.1-19.1S69.1,39.5,69.1,50">
+            <animateTransform
+            attributeName="transform"
+            attributeType="XML"
+            type="rotate"
+            dur="1s"
+            from="0 50 50"
+            to="360 50 50"
+            repeatCount="indefinite" />
+        </path>
+    </svg>
+
+    <div class="form">
+        <form action="javascript:void(0);" (submit)="doSave()">
+            <wo-flash></wo-flash>
+            <div class="form-row">
+                <div class="form-label">
+                    Name <i class="ico-star">*</i>
+                </div>
+                <div class="form-field" [ngClass]="{hasError: dataErrors['name']}">
+                    <input name="name" class="form-control" type="text" [(ngModel)]="dataForm['name']">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-label">
+                    Description <i class="ico-star">*</i>
+                </div>
+                <div class="form-field" [ngClass]="{hasError: dataErrors['description']}">
+                    <textarea name="description" class="form-control" [(ngModel)]="dataForm['description']"></textarea>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-label">
+                    Event Date <i class="ico-star">*</i>
+                </div>
+                <div class="form-field" [ngClass]="{hasError: dataErrors['event_date']}">
+                    <wo-datepicker name="event_date" [(ngModel)]="dataForm['event_date']"></wo-datepicker>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-label">
+                    Status
+                </div>
+                <div class="form-field">
+                    <select class="form-control" name="status" [(ngModel)]="dataForm['status']">
+                        <option [value]="0">Active</option>
+                        <option [value]="1">Deleted</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-label">
+                    Event Time <i class="ico-star">*</i>
+                </div>
+                <div class="form-field">
+                    <div class="form-field__time" [ngClass]="{hasError: dataErrors['event_time_start']}">
+                        Start:  <wo-timepicker name="event_time_start" [(ngModel)]="dataForm['event_time_start']"></wo-timepicker>
+                    </div>
+                    <div class="form-field__time" [ngClass]="{hasError: dataErrors['event_time_end']}">
+                        Finish: <wo-timepicker name="event_time_end" [(ngModel)]="dataForm['event_time_end']"></wo-timepicker>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-label">
+                    Duration Time
+                </div>
+                <div class="form-field">
+                    <div class="form-field form-field__duration" [ngClass]="{hasError: dataErrors['duration']}">
+                        <input class="form-control" name="duration" type="number" step="1" [(ngModel)]="dataForm['duration']">
+                    </div>
+                    <div class="form-measuring">
+                        (minutes)
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-label">
+                    Group By Level
+                </div>
+                <div class="form-field">
+                    <wo-slide-toggle-button [trueValue]="1" [falseValue]="0"
+                                            [(ngModel)]="dataForm['group_by_level']"
+                                            [ngModelOptions]="{standalone: true}"
+                                            [textON]="'Yes'"
+                                            [textOFF]="'No'"
+                    ></wo-slide-toggle-button>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <button  class="btn btn-primary">
+                    Save
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

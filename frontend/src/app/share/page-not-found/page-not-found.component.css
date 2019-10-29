@@ -1,0 +1,20 @@
+.c-page-not-found__content {
+    padding: 20px;
+    width: 600px;
+    margin: 20px auto 0;
+    overflow: hidden;
+}
+
+.c-page-not-found__title {
+    color: #f39c12;
+    float: left;
+    font-size: 96px;
+}
+
+.c-page-not-found__content-error {
+    margin-left: 180px;
+}
+
+.c-page-not-found__content-error .fa {
+    color: #f39c12;
+}

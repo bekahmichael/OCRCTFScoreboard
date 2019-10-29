@@ -1,0 +1,56 @@
+header {
+    border-bottom: 1px solid #ddd;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.04);
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.public-nav {
+    display: flex;
+}
+
+.links {
+    margin-left: 50px;
+}
+
+.user-links {
+    margin-left: auto;
+}
+
+.links a,
+.user-links a {
+    display: inline-block;
+    padding: 8px 12px;
+    border-radius: 5px;
+    color: rgba(0, 0, 0, 0.87);
+    text-decoration: none;
+}
+
+.links a.active {
+    background: rgba(0,0,0,.05);
+}
+
+.links a:hover,
+.user-links a:hover {
+    color: rgba(0, 0, 0, 0.60);
+}
+
+.logo a {
+    position: absolute;
+    padding-top: 4px;
+}
+
+.l-main {
+    padding-bottom: 65px;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-top: 1px solid #d6d6d6;
+}

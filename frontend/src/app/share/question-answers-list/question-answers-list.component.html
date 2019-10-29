@@ -1,0 +1,124 @@
+<div class="box">
+    <div class="box-header with-border">
+        <h3 class="box-title">Answers</h3>
+    </div>
+    <div class="box-body">
+        <table class="table table-bordered table-condensed table-striped table-hover table-sm">
+            <thead>
+            <tr>
+                <th>
+                    Possible answers
+                </th>
+                <th *ngIf="questionType != 3" style="width: 90px;">
+                    Image
+                </th>
+                <th *ngIf="questionType != 3" style="width: 90px;">
+                    Is Correct
+                </th>
+                <th style="text-align: center; width: 90px;">Actions</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <ng-container *ngFor="let answer of answers | keyvalue; let i=index">
+                <tr>
+                    <td [ngClass]="{hasError: answer.value['errors'] !== undefined ? answer.value['errors']['description'] : ''}">
+                        <textarea class="form-control" name="description"
+                                  [(ngModel)]="answer.value['description']" (change)="setQuestionNeedUpdate()"></textarea>
+                    </td>
+                    <td *ngIf="questionType != 3">
+                        <div class="w-100">
+                            <upload-image (changeImage)="onImageChanged($event, answer.value)" [woId]="answer.value['file_id'] || null" [woFullSrc]="api.baseUrl + '/files/image'" [woSrc]="api.baseUrl + '/files/image?r=150x150&type=adaptive'"></upload-image>
+                        </div>
+                    </td>
+                    <td *ngIf="questionType != 3">
+                        <div class="form-toggle">
+                            <wo-slide-toggle-button [trueValue]="'1'" [falseValue]="'0'"
+                                                    [(ngModel)]="answer.value['is_correct']"
+                                                    [textON]="'Yes'"
+                                                    [textOFF]="'No'"
+                                                    (click)="setQuestionNeedUpdate()"
+                            ></wo-slide-toggle-button>
+                        </div>
+                    </td>
+                    <td style="text-align: right; width: 90px;">
+                        <div class="btn-group">
+                            <a href="javascript:;" *ngIf="i < answers.length - 1 && questionType != 3" (click)="moveDown(i)"
+                               class="btn btn-sm btn-outline-secondary" data-toggle="tooltip" data-placement="Move Down"
+                               title="Move Down">
+                                <i class="fa fa-angle-down"></i>
+                            </a>
+                            <a href="javascript:;" *ngIf="i > 0 && questionType != 3" (click)="moveUp(i)"
+                               class="btn btn-sm btn-outline-secondary" data-toggle="tooltip" data-placement="Move Up"
+                               title="Move Up">
+                                <i class="fa fa-angle-up"></i>
+                            </a>
+                            <a href="javascript:;" (click)="doDeleteAnswer(answer)"
+                               class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top" title="Delete">
+                                <i class="fa fa-trash"></i>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            </ng-container>
+            <tr *ngIf="!answers || answers.length == 0" class="disabled">
+                <td colspan="4">{{loadingAnswers ? 'Loading ...' : 'No matching records found'}}</td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr *ngIf="newAnswerShow === true">
+                <th>
+                    Possible answer
+                </th>
+                <th *ngIf="questionType != 3" style="width: 90px;">
+                    Image
+                </th>
+                <th *ngIf="questionType != 3" style="width: 90px;">
+                    Is Correct
+                </th>
+                <th style="text-align: center; width: 90px;">Actions</th>
+            </tr>
+            <tr *ngIf="newAnswerShow === true">
+                <td [ngClass]="{hasError: newAnswerError['description']}">
+                    <textarea class="form-control" name="description"
+                              [(ngModel)]="newAnswer['description']"></textarea>
+
+                </td>
+                <td *ngIf="questionType != 3">
+                    <div class="w-100">
+                        <upload-image
+                            (changeImage)="onImageChanged($event, newAnswer)"
+                            [woId]="newAnswer['file_id'] || null"
+                            [woSrc]="api.baseUrl + '/files/image?r=150x150&type=adaptive'"
+                        ></upload-image>
+                    </div>
+                </td>
+                <td *ngIf="questionType != 3">
+                    <div class="form-toggle">
+                        <wo-slide-toggle-button [trueValue]="'1'" [falseValue]="'0'"
+                                                [(ngModel)]="newAnswer['is_correct']"
+                                                [ngModelOptions]="{standalone: true}"
+                                                [textON]="'Yes'"
+                                                [textOFF]="'No'"
+                        ></wo-slide-toggle-button>
+                    </div>
+                </td>
+                <td  style="text-align: right; width: 90px;">
+                    <a class="btn btn-sm btn-success" href="javascript:;" (click)="addAnswer()" data-toggle="tooltip"
+                       data-placement="top" title="Save">
+                        <i class="fa fa-check"></i>
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <th colspan="4">
+                    <a class="btn btn-sm btn-success" href="javascript:;" [class.disabled]="newAnswerShow" (click)="newAnswerShow=true" data-toggle="tooltip"
+                       data-placement="top" title="Add Answer">
+                        <i class="fa fa-plus"></i> Add Answer
+                    </a>
+                </th>
+            </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>

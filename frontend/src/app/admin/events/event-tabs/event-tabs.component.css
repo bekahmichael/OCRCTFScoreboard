@@ -1,0 +1,13 @@
+/* .btn.disabled {
+    pointer-events: initial !important;
+} */
+
+.btn-group {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+}
+
+.btn-outline-secondary:hover svg {
+    fill: #fff;
+}

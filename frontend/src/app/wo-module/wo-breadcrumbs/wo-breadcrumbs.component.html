@@ -1,0 +1,9 @@
+<div class="wo-breadcrumbs__wrapper">
+    <div class="wo-breadcrumbs__item" *ngFor="let link of breadCrumbs.links">
+        <a *ngIf="link?.route != null" [routerLink]="[link?.route]">
+            <i *ngIf="link.iconClass" [ngClass]="link.iconClass"></i>
+            {{link.text}}
+        </a>
+        <span *ngIf="link?.route == null">{{link.text}}</span>
+    </div>
+</div>

@@ -1,0 +1,6 @@
+<label class="wo-datalist">
+    <input [(ngModel)]="inputText" (focus)="doShow()" (keyup)="doFilterValues()" type="text" [placeholder]="placeholder" (blur)="onBlur($event)">
+    <div class="wo-datalist__items" #woDetilsItems>
+        <ng-content></ng-content>
+    </div>
+</label>

@@ -1,0 +1,12 @@
+<div [class.hide]="!errorPool.length" class="callout callout-danger hide">
+    <a class="wo-flash__close" *ngIf="errorPool.length" (click)="doFlush()">×</a>
+    <div class="callout__item" *ngFor="let error of errorPool">
+        {{error}}
+    </div>
+</div>
+<div [class.hide]="!successPool.length" class="callout callout-success hide">
+    <a class="wo-flash__close" *ngIf="successPool.length" (click)="doFlush()">×</a>
+    <div class="callout__item" *ngFor="let message of successPool">
+        {{message}}
+    </div>
+</div>

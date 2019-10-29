@@ -1,0 +1,72 @@
+<div class="c-signup">
+    <section class="content-header">
+      <h1>Sign Up</h1>
+    </section>
+
+    <div class="form" *ngIf="isConfirm == 0">
+        <form action="javascript:void(0)" (ngSubmit)="doSubmit()">
+            <div class="form-row">
+                <div class="form-label required">
+                    Username
+                </div>
+                <div class="form-field">
+                    <input class="form-control" [ngClass]="{'hasError': formErrors?.username}" [(ngModel)]="dataForm['username']" type="text" name="signup[username]">
+                    <div [ngClass]="{show: formErrors?.username}" class="label-error">
+                        {{formErrors?.username}}
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-label required">
+                    Email
+                </div>
+                <div class="form-field">
+                    <input class="form-control" [ngClass]="{'hasError': formErrors?.email}" [(ngModel)]="dataForm['email']" type="text" name="signup[email]">
+                    <div [ngClass]="{show: formErrors?.email}" class="label-error">
+                        {{formErrors?.email}}
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-label required">
+                    Password
+                </div>
+                <div class="form-field">
+                    <input class="form-control" [ngClass]="{'hasError': formErrors?.password}" [(ngModel)]="dataForm['password']" type="password" name="signup[password]">
+                    <div [ngClass]="{show: formErrors?.password}" class="label-error">
+                        {{formErrors?.password}}
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-label required">
+                    Confirm Password
+                </div>
+                <div class="form-field">
+                    <input class="form-control" [ngClass]="{'hasError': formErrors?.password_repeat}" [(ngModel)]="dataForm['password_repeat']" type="password" name="signup[password_repeat]">
+                    <div [ngClass]="{show: formErrors?.password_repeat}" class="label-error">
+                        {{formErrors?.password_repeat}}
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-label"></div>
+                <button type="submit" class="btn btn-primary">
+                    Create New Account
+                </button>
+            </div>
+
+            <div class="form-row">
+                <div class="form-label"></div>
+                <a routerLink="/login">
+                    Already have an account? Log in now!
+                </a>
+            </div>
+        </form>
+    </div>
+
+    <div *ngIf="isConfirm == 1">
+        An email will also be sent to your address to confirm that your registration have completed successfully.
+    </div>
+</div>

@@ -1,0 +1,37 @@
+.wo-sorter {
+    display: flex;
+    cursor: pointer;
+    user-select: none;
+}
+
+.wo-sorter__icon {
+    padding-top: 3px;
+    margin-left: auto;
+}
+
+.wo-sorter__icon svg {
+    width: 9px;
+    float: left;
+    opacity: .3;
+}
+
+.wo-sorter__icon svg {
+    fill: #444;
+}
+
+.wo-sorter__icon-up {
+    overflow: hidden;
+    margin-bottom: 2px;
+}
+
+.wo-sorter__icon-down {
+    overflow: hidden;
+}
+
+.wo-sorter_asc .wo-sorter__icon-up svg {
+    opacity: 1;
+}
+
+.wo-sorter_desc .wo-sorter__icon-down svg {
+    opacity: 1;
+}

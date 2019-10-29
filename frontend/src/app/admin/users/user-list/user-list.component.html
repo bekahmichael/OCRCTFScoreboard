@@ -1,0 +1,174 @@
+<div class="c-users">
+  <section class="content-header">
+    <h1>Users</h1>
+  </section>
+
+
+
+  <div class="content">
+    <div class="box">
+      <div class="nav-tabs-custom">
+          <div>
+              <ul class="nav nav-tabs clearfix">
+                  <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                      <a routerLink="/admin/users">Admins</a>
+                  </li>
+                  <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                      <a routerLink="/admin/users/participants">Participants</a>
+                  </li>
+              </ul>
+          </div>
+      </div>
+
+      <div class="box-body">
+        <form action="javascript:void(0);" (submit)="doSearch()">
+          <div class="form__search-box" [ngClass]="{'advanced-filter': advanced_filters}">
+            <div class="form__search-box__common clearfix">
+              <div class="input-group d-inline">
+                <input class="form-control" type="text" name="common_search" [(ngModel)]="search['inpCommon']" placeholder="Search..." >
+                <button class="btn btn-secondary">
+                  <i class="fa fa-search" aria-hidden="true"></i>
+                </button>
+              </div>
+              <a href="javascript:void(0);" (click)="toggleAdvancedFilter()" class="form__search-box__advanced-btn">
+                <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                Advanced Search
+              </a>
+            </div>
+
+            <div class="form__advanced-search-box">
+              <div class="form__advanced-search-box__body clearfix">
+
+                <div class="form__advanced-search-box__item clearfix">
+                  <div class="form__advanced-search-box__label">Username</div>
+                  <div class="form__advanced-search-box__field">
+                    <input class="form-control" type="text" autocomplete="off" [(ngModel)]="search.condition['username']" name="username">
+                  </div>
+                </div>
+
+                <div class="form__advanced-search-box__item clearfix">
+                  <div class="form__advanced-search-box__label">Name</div>
+                  <div class="form__advanced-search-box__field">
+                    <input class="form-control" type="text" [(ngModel)]="search.condition['name']" name="name">
+                  </div>
+                </div>
+
+                <div class="form__advanced-search-box__item clearfix">
+                  <div class="form__advanced-search-box__label">Email</div>
+                  <div class="form__advanced-search-box__field">
+                    <input class="form-control" type="text" [(ngModel)]="search.condition['email']" name="email">
+                  </div>
+                </div>
+
+                <div class="form__advanced-search-box__item clearfix">
+                  <div class="form__advanced-search-box__label">Status</div>
+                  <div class="form__advanced-search-box__field">
+                    <select class="form-control" name="status" [(ngModel)]="search.condition['status']">
+                      <option value="">All</option>
+                      <option value="active">Active</option>
+                      <option value="blocked">Blocked</option>
+                      <option value="deleted">Deleted</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form__advanced-search-box__item clearfix">
+                  <div class="form__advanced-search-box__label">Created From</div>
+                  <div class="form__advanced-search-box__field">
+                    <wo-datepicker [(ngModel)]="search.condition['cdate_from']" name="cdate_from"></wo-datepicker>
+                  </div>
+                </div>
+
+                <div class="form__advanced-search-box__item clearfix">
+                  <div class="form__advanced-search-box__label">Created To</div>
+                  <div class="form__advanced-search-box__field">
+                   <wo-datepicker [(ngModel)]="search.condition['cdate_to']" name="cdate_to"></wo-datepicker>
+                  </div>
+                </div>
+
+              </div>
+              <div class="form__advanced-search-box__controls">
+                <button class="btn btn-primary">Apply Filter</button>
+                <button (click)="resetFilter($event)" class="btn btn-default">Reset Filter</button>
+              </div>
+            </div>
+
+          </div>
+        </form>
+
+        <div class="c-groups__top_buttons btn-group">
+          <a class="btn btn-secondary" href="javascript:void(0)" (click)="editUser(0)">Add New</a>
+          <a class="btn btn-success" (click)="doMassChangeStatus('active')" href="javascript:;">Activate</a>
+          <a class="btn btn-warning" (click)="doMassChangeStatus('blocked')" href="javascript:;">Block</a>
+          <a class="btn btn-danger" (click)="doMassChangeStatus('deleted')" href="javascript:;">Delete</a>
+        </div>
+
+        <wo-flash block="userlist"></wo-flash>
+
+        <div [ngClass]="{'box-loading': loading}">
+          <table class="table table-bordered table-sm table-striped table-hover">
+            <thead>
+              <tr>
+                <th style="width: 10px;">
+                  <wo-checkbox (click)="checkAllRows($event)" [(ngModel)]="all_check"></wo-checkbox>
+                </th>
+                <th>
+                    <wo-sort [woSortActive]="search.sort" woSortStart="username" (sort)="sortBy($event)">Username</wo-sort>
+                </th>
+                <th>
+                    <wo-sort [woSortActive]="search.sort" woSortStart="name" (sort)="sortBy($event)">Name</wo-sort>
+                </th>
+                <th>
+                    <wo-sort [woSortActive]="search.sort" woSortStart="email" (sort)="sortBy($event)">Email</wo-sort>
+                </th>
+                <th>
+                    <wo-sort [woSortActive]="search.sort" woSortStart="created_at" (sort)="sortBy($event)">Created At</wo-sort>
+                </th>
+                <th style="width: 70px;">
+                    <wo-sort [woSortActive]="search.sort" woSortStart="status" (sort)="sortBy($event)">Status</wo-sort>
+                </th>
+                <th style="width: 95px; text-align: center;">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let row of rows" [ngClass]="{warning: row.status == 'blocked', danger: row.status == 'deleted'}">
+                <td>
+                  <wo-checkbox [checked]="row.is_checked" [(ngModel)]="row.is_checked"></wo-checkbox>
+                </td>
+                <td class="td-link" (click)="toProfile(row.id)">{{row.username}}</td>
+                <td class="td-link" (click)="toProfile(row.id)">{{row.name}}</td>
+                <td class="td-link" (click)="toProfile(row.id)">{{row.email}}</td>
+                <td class="td-link" (click)="toProfile(row.id)">{{row.created_at | date}}</td>
+                <td class="td-link" (click)="toProfile(row.id)" style="text-align: center;">{{STATUS_LABELS[row.status]}}</td>
+                <td>
+                  <div class="table__button-groups btn-group">
+                    <a title="Activate" *ngIf="row.status !== 'active'" href="javascript:void(0);" (click)="doChangeStatus(row, 'active')" class="btn btn-success">
+                      <i class="fa fa-unlock"></i>
+                    </a>
+                    <a title="Block" *ngIf="row.status !== 'blocked' && row.status !== 'deleted'" href="javascript:void(0);" (click)="doChangeStatus(row, 'blocked')" class="btn btn-warning">
+                      <i class="fa fa-lock"></i>
+                    </a>
+                    <a title="Edit" (click)="toProfile(row.id)" href="javascript:void(0);" class="btn btn-secondary">
+                      <i class="fa fa-pencil"></i>
+                    </a>
+                    <a title="Delete" href="javascript:void(0);" (click)="doChangeStatus(row, 'deleted')" class="btn btn-danger">
+                      <i class="fa fa-trash"></i>
+                    </a>
+                  </div>
+                </td>
+              </tr>
+              <tr *ngIf="rows.length == 0" class="disabled">
+                <td colspan="8">
+                  {{loading ? 'Loading ...' : 'No matching records found'}}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <wo-paginator *ngIf="last_page>1" [last]="last_page" [current]="curr_page" (changePage)="toPage($event)"></wo-paginator>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

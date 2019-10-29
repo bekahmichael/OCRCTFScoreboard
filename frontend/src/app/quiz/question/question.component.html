@@ -1,0 +1,65 @@
+<div class="group-box" *ngIf="question.showLevel && event.group_by_level == 1 && question.first_of_level">
+    <h5 class="box-title">
+        Level #{{question.level}}
+    </h5>
+</div>
+
+<div class="my-3 p-3 bg-white rounded shadow-sm" [class.shadow]="question['hover']"
+     (mouseover)="question['hover']=true"
+     (mouseout)="question['hover']=false">
+    <small *ngIf="question.showLevel && event.group_by_level == 0" class="d-block text-right pull-right">
+        <span class="label bg-level">Level #{{question.level}}</span>
+    </small>
+    <h5 class="border-bottom border-gray pb-2 mb-0 text-bold">Question #{{index}}</h5>
+    <div class="media pt-3 row">
+        <div class="text-justify col-12">
+            <p class="media-body pb-3 mb-0 lh-125 break">
+                <strong class="d-block text-gray-dark">{{question.title}}</strong>
+                {{question.description}}
+            </p>
+        </div>
+        <div *ngIf="question.file_id" class="text-center col-12">
+            <wo-preview-image [woFullSrc]="getFullImageUrl(question.file_id)">
+                <img [src]="getImageUrl(question.file_id)" alt="Question #{{index}}" class="mw-100">
+            </wo-preview-image>
+        </div>
+    </div>
+    <blockquote>
+        <h6 class="answers">
+            {{question.type == 3 ? 'Answer' : 'Answers'}}:
+        </h6>
+        <textarea *ngIf="question.type == 3" class="form-control mt-1" name="answered[{{question.id}}]"
+                  (change)="changeSelectedTextarea($event, question)" [(ngModel)]="question.answer">
+            {{question.answer != '' ? question.answer : ''}}</textarea>
+        <ul *ngIf="question.type == 0 || question.type == 1" class="list-group list-group-flush">
+            <li *ngFor="let answer of question.activeAnswers;" class="list-group-item"
+                [class.primary-background]="answer['hover']"
+                [class.shadow]="answer['hover']"
+                (mouseover)="answer['hover']=true"
+                (mouseout)="answer['hover']=false">
+                <label class="w-100">
+                    <wo-radio *ngIf="question.type == 0" [value]="answer.id" [name]="'answered['+question.id+']'"
+                              [(ngModel)]="question.is_selected" [ngModelOptions]="{standalone: true}" (change)="changeSelectedRadio($event, question)"></wo-radio>
+                    <wo-checkbox *ngIf="question.type == 1" [trueValue]="answer.id" [falseValue]="0"
+                                 [(ngModel)]="answer.is_selected" [name]="'answered['+question.id+'][]'"
+                                 [ngModelOptions]="{standalone: true}"
+                                 (change)="changeSelectedCheckbox($event, question, answer)"></wo-checkbox>
+                    {{answer.description}}
+                    <span *ngIf="answer.file_id" class="w-100 text-center d-inline-block">
+                        <wo-preview-image [woFullSrc]="getFullImageUrl(answer.file_id)">
+                            <img [src]="getImageUrl(answer.file_id)" class="mw-100 mx-auto" alt="">
+                        </wo-preview-image>
+                    </span>
+                </label>
+            </li>
+        </ul>
+        <select *ngIf="question.type == 2" class="form-control mt-1" [name]="'answered['+question.id+']'"
+                [(ngModel)]="question.is_selected" (change)="changeSelectedList($event, question)">
+            <option value="" disabled selected>Select a correct answer</option>
+            <option *ngFor="let answer of question.activeAnswers;" [value]="answer.id">{{answer.description}}</option>
+        </select>
+    </blockquote>
+    <small class="d-block text-right mt-3">
+        <span class="label bg-info">{{question.points}}</span>
+    </small>
+</div>

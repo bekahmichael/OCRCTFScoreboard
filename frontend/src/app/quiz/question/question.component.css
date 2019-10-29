@@ -1,0 +1,107 @@
+.group-box {
+    margin-top: 15px;
+    color: #ffffff;
+    background: #607D8B;
+    padding: 10px 10px 2px;
+}
+
+
+.label {
+    display: inline;
+    padding: .2em .6em .3em;
+    font-weight: 700;
+    line-height: 1;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: .25em;
+}
+
+p.media-body {
+    word-break: break-all;
+}
+
+blockquote {
+    padding: 10px 10px 5px;
+    margin: 0 0 10px;
+    border-left: 5px solid #eee;
+}
+blockquote textarea.form-control.mt-1,
+blockquote select.form-control {
+    border-radius: 0;
+}
+
+.list-group-flush .list-group-item:first-child {
+    border-top: 0;
+}
+
+h6.answers {
+    background-color: #f7f7f7;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 7px 25px;
+    margin: -10px -10px 0;
+}
+
+label {
+    margin-bottom: 0;
+}
+
+label:hover {
+    cursor: pointer;
+}
+
+
+/* RADIO */
+
+.wo-radio {
+    width: 16px;
+    height: 16px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    display: inline-block;
+    border: 2px solid rgba(0,0,0,.44);
+    border-radius: 50%;
+    position: relative;
+    top: 3px;
+}
+
+.wo-radio.checked {
+    border: 2px solid #4a8cf6;
+}
+
+.wo-radio.checked:before {
+    content: '';
+    display: inline-block;
+    border: 3px solid #4a8cf6;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    margin-top: -3px;
+    left: 50%;
+    margin-left: -3px;
+}
+
+.wo-radio input {
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+}
+.primary-background {
+    color: #004085;
+    background-color: #cce5ff;
+    border-color: #b8daff;
+}
+
+.list-group-item {
+    padding: 0;
+}
+.list-group-item label{
+    padding: 0.75rem 1.25rem;
+}
+
+.bg-level {
+    background: #4cae54;
+}

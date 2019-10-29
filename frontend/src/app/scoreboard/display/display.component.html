@@ -1,0 +1,128 @@
+<div
+    *ngIf="data && data['scoreboard']"
+    class="c-scoreboard-display"
+    [style.backgroundColor]="data.scoreboard['background_color'] || data.scoreboard_template['background_color']"
+    [style.backgroundImage]="'url(' + data['background_image_url'] + ')'"
+    [style.color]="data['scoreboard_template']['text_color']"
+>
+    <div
+        *ngIf="data"
+        class="scoreboard__table"
+        [style.backgroundColor]="data.scoreboard_template['foreground_color']"
+    >
+        <div *ngIf="data.scoreboard.show_quiz_title === 1" class="scoreboard__title" [style.color]="data['scoreboard_template']['title_color']">
+            {{data?.event?.name}}
+        </div>
+        <div
+            *ngIf="data.scoreboard.show_countdown_clock === 1 && totalTime !== null"
+            class="scoreboard__downclock"
+            [style.backgroundColor]="data.scoreboard['background_color'] || data.scoreboard_template['background_color']"
+        >
+            {{ (totalTime < 0 ? 0 : totalTime) | secondsToTime:'minutes' }}
+        </div>
+        <div class="scoreboard__team-list">
+            <table>
+                <thead [style.color]="data['scoreboard_template']['column_color']">
+                    <th *ngIf="data.scoreboard.show_teams_avatars === 1"  style="width: 100px"></th>
+                    <th>
+                        Name
+                    </th>
+                    <th style="width: 150px; text-align: right;">
+                        Score
+                    </th>
+                    <th style="width: 200px; text-align: right;">
+                        Rank
+                    </th>
+                </thead>
+                <tbody class="team-list">
+                    <tr [attr.data-team-row]="i" [class.d-none]="team._group !== showGroup" [class.bounceInUp]="team._group === showGroup" [class.animated]="team._group === showGroup" *ngFor="let team of data.teams; index as i">
+                        <td *ngIf="data.scoreboard.show_teams_avatars === 1">
+                            <img class="team-avatar-img" *ngIf="team.avatar_url !== null" [src]="team.avatar_url" alt="">
+                        </td>
+                        <td>
+                            <div style="position: relative;">
+                                <div style="white-space: nowrap; text-overflow: ellipsis; top:0; position: absolute; width: 100%; overflow: hidden;">
+                                    {{team.team.name}}
+                                </div>
+                                &nbsp;
+                            </div>
+                        </td>
+                        <td style="text-align: right">{{(team.scores || 0) | number: '0.1' }}</td>
+                        <td style="text-align: right">{{team.rank || 'n/a'}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="totalTime < 10 && totalTime > 0" class="cooldown-timer animated" [class.zoomIn]="cooldownTimerActive === true" [class.animated]="cooldownTimerActive === true">
+    {{totalTime | number:'0.0'}}
+</div>
+
+<div *ngIf="data && newLeadAnimation === true" class="new-lead-animation">
+    <div class="new-lead-animation__content" [class.zoomIn]="newLeadAnimation === true" [class.animated]="newLeadAnimation === true">
+        <div class="new-lead-animation__avatar">
+            <div *ngIf="data.scoreboard.show_teams_avatars === 1">
+                <img *ngIf="currentLeader.avatar_url !== null" [src]="currentLeader.avatar_url" alt="">
+            </div>
+        </div>
+        <div class="new-lead-animation__teamname">
+            {{currentLeader.team.name}}
+        </div>
+        <div>
+            <div class="ribbon">
+                New team taking the lead
+                <i></i>
+                <i></i>
+                <i></i>
+                <i></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="final-results" *ngIf="data && data.scoreboard.show_final_results === 1">
+    <div class="final-results__content" [class.zoomIn]="data.scoreboard.show_final_results" [class.animated]="data.scoreboard.show_final_results">
+        <div *ngIf="data.teams[1]" class="final-results__item final-results__2" >
+            <div class="final-results__avatar">
+                <img [src]="data.teams[1].avatar_url" alt="">
+            </div>
+            <div class="final-results__team-name">{{data.teams[1]['team']['name']}}</div>
+            <div class="final-result__ribbon-wrapper">
+                <div class="final-result__ribbon">
+                    <div class="final-result__ribbon__text">2nd place</div>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="data.teams[0]" class="final-results__item final-results__1">
+            <div class="final-results__avatar">
+                <img [src]="data.teams[0].avatar_url" alt="">
+            </div>
+            <div class="final-results__team-name">{{data.teams[0]['team']['name']}}</div>
+            <div class="final-result__ribbon-wrapper">
+                <div class="final-result__ribbon">
+                    <div class="final-result__ribbon__text">1st place</div>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="data.teams[2]" class="final-results__item final-results__3">
+            <div class="final-results__avatar">
+                <img [src]="data.teams[2].avatar_url" alt="">
+            </div>
+            <div class="final-results__team-name">{{data.teams[2]['team']['name']}}</div>
+            <div class="final-result__ribbon-wrapper">
+                <div class="final-result__ribbon">
+                    <div class="final-result__ribbon__text">3rd place</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="minutes_left !== null" [class.zoomIn]="minutes_left !== null" [class.animated]="minutes_left !== null" class="notification-minutes-left">
+    <div class="notification-minutes-left__content">
+        <div class="notification-minutes-left__number">{{minutes_left}}</div>
+        <div class="notification-minutes-left__note">minutes left</div>
+    </div>
+</div>

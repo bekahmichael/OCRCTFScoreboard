@@ -1,0 +1,55 @@
+::ng-deep body.modal-open {
+    overflow: hidden;
+}
+
+.c-wo-dialogs {
+    opacity: 0;
+    text-align: center;
+}
+
+.c-wo-dialogs.dialog-open {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1010;
+    opacity: 1;
+}
+
+.c-wo-dialogs.dialog-open .c-wo-dialog_item {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1041;
+    opacity: 1;
+    overflow: auto;
+}
+
+.c-wo-dialogs .c-wo-dialog_item:first-child wo-dialog {
+    position: fixed;
+    z-index: -1;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.c-wo-dialogs .c-wo-dialog_item:last-child wo-dialog {
+    position: initial;
+    z-index: initial;
+}
+
+.c-wo-dialogs__bg {
+    content: '';
+    background-color: #fff;
+    opacity: .75;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1005;
+}

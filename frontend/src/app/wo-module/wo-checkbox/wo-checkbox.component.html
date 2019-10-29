@@ -1,0 +1,4 @@
+<div class="wo-wrapper" [ngClass]="{'wo_checked': isChecked}" [class]="theme">
+    <svg xml:space="preserve" class="wo-checkbox-checkmark" version="1.1" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path class="wo-checkbox-checkmark-path" d="M4.1,12.7 9,17.6 20.3,6.3" fill="none" stroke="white"></path></svg>
+</div>
+<input [checked]="isChecked" type="checkbox" (change)="onChange($event)">

@@ -1,0 +1,11 @@
+.table__button-groups {
+    text-align: center;
+}
+/*
+.btn.disabled {
+    pointer-events: initial !important;
+} */
+
+.btn-outline-secondary:hover svg {
+    fill: #fff;
+}

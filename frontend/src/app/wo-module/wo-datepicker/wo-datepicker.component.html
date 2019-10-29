@@ -1,0 +1,82 @@
+<div class="wo-datepicker" #wrapper>
+    <input class="form-control" type="text" autocomplete="off" name="def_name" [class.focused]="isShow" (change)="onChange()" (focus)="open()" [(ngModel)]="innerValue">
+    <svg (click)="open()" class="wo_datepicker-img" height="24" viewBox="0 0 24 24" width="24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"></path></svg>
+    <div *ngIf="isShow === true" class="wo-datepicker_wrapper" [style.left]="leftOffset + 'px'">
+        <div class="wo-datepicker__arrow" [style.left]="-1*(leftOffset) + 'px'"></div>
+        <div class="datepicker-days">
+            <table *ngIf="mode === 'days'">
+                <thead>
+                    <tr>
+                        <th>
+                            <span (click)="prevMonth()" class="wo-datepicker__prev">‹</span>
+                        </th>
+                        <th colspan="5">
+                            <div class="wo-datepicker__switch-mode" (click)="setMode('months')">
+                                {{months[calendarDate.getMonth()]}} {{calendarDate.getFullYear()}}
+                            </div>
+                        </th>
+                        <th>
+                            <span (click)="nextMonth()" class="wo-datepicker__next">›</span>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th class="dow">Su</th>
+                        <th class="dow">Mo</th>
+                        <th class="dow">Tu</th>
+                        <th class="dow">We</th>
+                        <th class="dow">Th</th>
+                        <th class="dow">Fr</th>
+                        <th class="dow">Sa</th>
+                    </tr>
+                </thead>
+                <tbody class="animated" [class.slideInRight]="toLeft" [class.slideInLeft]="toRight">
+                    <tr *ngFor="let week of monthDays;">
+                        <td
+                            *ngFor="let day of week;"
+                            class="wo-calendar__day"
+                            [class.old]="day.isPrevMonth"
+                            [class.new]="day.isNextMonth"
+                            [class.wo-calendar__day_sat]="d==5"
+                            [class.wo-calendar__day_sun]="d==6"
+                            [class.wo-calendar__day_current]="day.isCurrent"
+                            [class.wo-calendar__day_selected]="day.isSelected"
+                            (click)="setDate($event, day)"
+                        ><span>{{day.num}}</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="datepicker-months">
+            <table class="wo-datepicker__months" *ngIf="mode === 'months'">
+                <thead>
+                    <tr>
+                        <th>
+                            <span (click)="prevYear()" class="wo-datepicker__prev">‹</span>
+                        </th>
+                        <th colspan="5">
+                            {{calendarDate.getFullYear()}}
+                        </th>
+                        <th>
+                            <span (click)="nextYear()" class="wo-datepicker__next">›</span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td colspan="7">
+                            <div
+                                class="wo-datepicker__month"
+                                *ngFor="let month of short_months; let i = index;"
+                                [class.current]="calendarDate.getMonth() == i"
+                            >
+                                <a href="javascript:void(0);" (click)="setMonth(i)">
+                                    {{month}}
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,38 @@
+<div class="c-teams-list">
+    <div class="form">
+        <wo-flash></wo-flash>
+
+        <div class="form-row">
+            <div>
+                <wo-avatar (changeImage)="onAvatarChanged($event)" [woId]="dataForm['avatar_file_id'] || null" [woSrc]="api.baseUrl + '/teams/avatar'"></wo-avatar>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-label">
+                Name <i class="ico-star">*</i>
+            </div>
+            <div class="form-field" [ngClass]="{hasError: dataErrors['name']}">
+                <input class="form-control" type="text" [(ngModel)]="dataForm['name']">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-label">
+                Status
+            </div>
+            <div class="form-field">
+                <select class="form-control" name="status" [(ngModel)]="dataForm['status']">
+                    <option [value]="0">Active</option>
+                    <option [value]="2">Blocked</option>
+                    <option [value]="1">Deleted</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <a href="javascript:void(0)" (click)="doSave()" class="btn btn-primary">
+                Save
+            </a>
+        </div>
+    </div>
+</div>

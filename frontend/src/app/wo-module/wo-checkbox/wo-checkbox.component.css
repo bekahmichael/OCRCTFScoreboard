@@ -1,0 +1,70 @@
+:host {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    position: relative;
+}
+
+.wo-wrapper {
+    border: 2px solid rgba(0,0,0,.44);
+    cursor: pointer;
+    border-radius: 2px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    color: transparent;
+}
+
+.dark.wo-wrapper {
+    border-color: #fff;
+}
+
+.white.wo-wrapper {
+    background: #fff;
+}
+
+.wo-checkbox-checkmark {
+    position: absolute;
+    left: -1px;
+    right: -1px;
+    top: -1px;
+    bottom: -1px;
+    display: none;
+}
+
+.wo-checkbox-checkmark-path {
+    stroke-width: 3.67px;
+}
+
+input[type=checkbox] {
+    opacity: 0;
+    margin: 0;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    float: left;
+}
+
+.wo_checked {
+    background: #2196F3;
+    border-color: #2196F3;
+    color: #fff;
+}
+
+.white.wo_checked {
+    background: #FFA000;
+    border-color: #FF8F00;
+    color: #fff;
+}
+
+.dark.wo_checked {
+    border-color: #FF8F00;
+    background: #FFA000;
+}
+
+.wo_checked .wo-checkbox-checkmark {
+    display: block;
+}

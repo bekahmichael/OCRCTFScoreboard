@@ -1,0 +1,60 @@
+.wo-autocomplete {
+    display: inline-block;
+    position: relative;
+    z-index: 3;
+}
+
+.wo-autocomplete__items {
+    background: #fff;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    border: 1px solid #ccc;
+    border-top: none;
+    min-width: 100%;
+    box-sizing: border-box;
+}
+
+.wo-autocomplete__item {
+    padding: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.wo-autocomplete__item:hover,
+.wo-autocomplete__item.selected {
+    background: #eee;
+}
+
+.wo-autocomplete__loader {
+    position: absolute;
+    border: 1px solid #ccc;
+    height: 10px;
+    width: 10px;
+    right: 5px;
+    top: 50%;
+    margin-top: -6px;
+    border-radius: 50%;
+}
+
+.wo-autocomplete__loader {
+    border-top: 1px solid #f26522;
+    border-right: 1px solid transparent;
+    border-bottom: 1px solid #f26522;
+    border-left: 1px solid transparent;
+    transform: translateZ(0);
+    animation: wo-autocomplete-loader .5s infinite linear;
+}
+
+@keyframes wo-autocomplete-loader {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+:host ::ng-deep .wo-highlight {
+    color: #e05d1f;
+}

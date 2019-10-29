@@ -1,0 +1,29 @@
+<div class="user-menu__wrapper clearfix" [ngClass]="{'open-dropdown': isOpen}">
+    <div class="user-menu__main">
+        <div class="user-menu__name">
+            {{authService.user.first_name}} {{authService.user.last_name}}
+        </div>
+        <a (click)="toggleMenu()" href="javascript:void(0);" class="user-menu__toggle-btn">
+            <div class="user-menu__avatar">
+                <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+            </div>
+            <i class="fa fa-ellipsis-v user-menu__menu-ico" aria-hidden="true"></i>
+        </a>
+    </div>
+    <div class="user-menu__dropdown">
+        <div class="gb_mb"></div>
+        <div class="gb_lb"></div>
+        <div class="user-menu__dropdown-item">
+            <a [routerLink]="['/admin/users', userId]">
+                <i class="fa fa-user" aria-hidden="true"></i>
+                My Profile
+            </a>
+        </div>
+        <div class="user-menu__dropdown-item">
+            <a (click)="logOut()" href="javascript:void(0);">
+                <i class="fa fa-sign-out" aria-hidden="true"></i>
+                Log Out
+            </a>
+        </div>
+    </div>
+</div>

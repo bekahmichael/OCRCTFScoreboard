@@ -1,0 +1,132 @@
+<div class="c-teams-list">
+    <section class="content-header">
+        <h1>Teams List</h1>
+    </section>
+
+    <div class="content">
+        <!-- Search -->
+        <form action="javascript:void(0);" (submit)="doSearch()">
+            <div class="form__search-box" [ngClass]="{'advanced-filter': advanced_filters}">
+                <div class="form__search-box__common clearfix">
+                    <input class="form-control" type="text" name="common_search" [(ngModel)]="criteria.preFilter['common']" placeholder="Search..." >
+                    <button class="btn btn-secondary">
+                        <i class="fa fa-search" aria-hidden="true"></i>
+                    </button>
+                    <!-- <a href="javascript:void(0);" (click)="toggleAdvancedFilter()" class="form__search-box__advanced-btn">
+                        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                        <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                        Advanced Search
+                    </a> -->
+                </div>
+
+                <!-- Advanced Search -->
+                <div class="form__advanced-search-box">
+                    <div class="form__advanced-search-box__body clearfix">
+
+                        <div class="form__advanced-search-box__item clearfix">
+                            <div class="form__advanced-search-box__label">Name</div>
+                            <div class="form__advanced-search-box__field">
+                                <input class="form-control" type="text" autocomplete="off" [(ngModel)]="criteria['preFilter']['name']" name="name">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="form__advanced-search-box__controls">
+                        <button class="btn btn-primary">Apply Filter</button>
+                        <button (click)="resetFilter($event)" class="btn btn-default">Reset Filter</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <div class="c-teams-list__top-controls">
+            <div class="c-teams-list__top-controls__buttons">
+                <button class="btn btn-outline-primary" (click)="sendAccessCodesByEmail()">
+                    Send Access to Participant Emails
+                </button>
+                <button class="btn btn-outline-primary" (click)="doDownloadAccessPINs()">
+                    Download Access PINs
+                </button>
+            </div>
+            <div class="c-teams-list__only-assigned-filter">
+                <label
+                    class="btn btn-outline-dark"
+                    [class.active]="criteria['preFilter']['assigned'] === '1'"
+                >
+                    Show Only Assigned
+                    <wo-slide-toggle (change)="doSearch()" [trueValue]="'1'" [falseValue]="''" [(ngModel)]="criteria['preFilter']['assigned']"></wo-slide-toggle>
+                </label>
+            </div>
+        </div>
+
+            <!-- Table List -->
+        <div [ngClass]="{'box-loading': loading}">
+            <table class="table table-bordered table-condensed table-striped table-hover table-sm">
+                <thead>
+                    <tr>
+                        <th>
+                            <wo-sort [woSortActive]="criteria['sort']" woSortStart="name" (sort)="sortBy($event)">Name</wo-sort>
+                        </th>
+                        <th style="width: 130px;">
+                            Access PIN
+                        </th>
+                        <th style="width: 140px; text-align: center; white-space: nowrap;">
+                            Access Link
+                        </th>
+                        <th style="width: 50px;"></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr *ngFor="let row of rows" [class.table-success]="row.is_assigned">
+                        <td (click)="toProfile(row.id)" style="padding-top: 7px; padding-left: 10px;">{{row['name']}}</td>
+                        <td>
+                            <div class="pin-wrapper" *ngIf="row.is_assigned">
+                                <div class="pin-value">
+                                    {{row['_show_pin'] === true ? row['pin'] : '**********'}}
+                                </div>
+                                <div class="pin-controller">
+                                    <i
+                                        class="fa fa-eye"
+                                        [class.fa-eye-slash]="row['_show_pin'] === true"
+                                        (click)="row['_show_pin'] = !row['_show_pin']"
+                                    ></i>
+                                </div>
+                            </div>
+                        </td>
+                        <td style="white-space: nowrap; text-align: center;">
+                            <div class="btn-group">
+                                <a
+                                    [class.disabled]="!row.is_assigned"
+                                    [href]="row.is_assigned ? '/quiz/' + row.id + ':' + row.access_key : 'javascript:void(0);'"
+                                    class="btn btn-sm btn-outline-dark"
+                                    target="_blank"
+                                    title="Open External Link"
+                                >
+                                    <i class="fa fa-external-link" aria-hidden="true"></i> Open
+                                </a>
+                                <a
+                                    (click)="copyAccessLink(row)"
+                                    [class.disabled]="!row.is_assigned"
+                                    href="javascript:void(0);"
+                                    class="btn btn-sm btn-outline-dark"
+                                    title="Copy to Clipboard"
+                                >
+                                    <i class="fa fa-clipboard" aria-hidden="true"></i> Copy
+                                </a>
+                            </div>
+                        </td>
+                        <td>
+                            <wo-slide-toggle (change)="assignTeam(row)" [(ngModel)]="row.is_assigned"></wo-slide-toggle>
+                        </td>
+                    </tr>
+                    <tr *ngIf="rows.length == 0" class="disabled">
+                        <td colspan="3">{{loading ? 'Loading ...' : 'No matching records found'}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <wo-paginator *ngIf="last_page>1" [last]="last_page" [current]="curr_page" (changePage)="toPage($event)"></wo-paginator>
+    </div>
+</div>
